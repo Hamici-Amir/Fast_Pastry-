@@ -1,0 +1,40 @@
+{
+  "cli": {
+    "version": ">= 16.28.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "image": "latest",
+        "env": {
+          "NDK_VERSION": "27.1.12297006"
+        }
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "image": "latest",
+        "env": {
+          "NDK_VERSION": "27.1.12297006"
+        }
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "image": "latest",
+        "env": {
+          "NDK_VERSION": "27.1.12297006"
+        }
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+
