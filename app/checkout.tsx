@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import { 
   ArrowLeft, 
@@ -41,6 +42,7 @@ import { theme } from '../src/theme';
 import { GlassBox } from '../src/components/ui/GlassBox';
 import { Button } from '../src/components/ui/Button';
 import { AppHeader } from '../src/components/common/AppHeader';
+import { LanguagePicker } from '../src/components/ui/LanguagePicker';
 
 const { width, height } = Dimensions.get('window');
 
@@ -158,6 +160,7 @@ const SimulatedRouteMap = () => {
 };
 
 export default function CheckoutScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   
@@ -263,8 +266,8 @@ export default function CheckoutScreen() {
       
       {/* Universal Modern Header */}
       <AppHeader 
-        title="Checkout Studio"
-        subtitle="Secure Haute Gateway"
+        title={t('cart:checkout')}
+        subtitle={t('cart:order_summary')}
         leftContent={
           <TouchableOpacity 
             className="w-11 h-11 items-center justify-center rounded-2xl bg-white/80 border border-[#D4A373]/20 shadow-sm ml-3"
@@ -273,6 +276,7 @@ export default function CheckoutScreen() {
             <X size={20} color="#D4A373" />
           </TouchableOpacity>
         }
+        rightContent={<LanguagePicker compact />}
       />
 
       <ScrollView 
@@ -280,7 +284,7 @@ export default function CheckoutScreen() {
         contentContainerStyle={[styles.scrollContent, { paddingBottom: 120 }]}
       >
         {/* SECTION 1: DELIVERY ADDRESS */}
-        <Text style={styles.sectionTitle}>Delivery Destination</Text>
+        <Text style={styles.sectionTitle}>{t('orders:delivery_address')}</Text>
         <GlassBox intensity={80} style={styles.addressCard}>
           <View style={styles.addressRow}>
             <View style={styles.addressIconCircle}>
@@ -301,11 +305,11 @@ export default function CheckoutScreen() {
         </GlassBox>
 
         {/* SECTION 2: MAP PREVIEW */}
-        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>Boutique Logistics Map</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>{t('orders:track_order')}</Text>
         <SimulatedRouteMap />
 
         {/* SECTION 3: DELIVERY DATE SELECTOR */}
-        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>Select Date (Craftsmanship requires 24h)</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>{t('orders:estimated_delivery', { time: '' })}</Text>
         <ScrollView 
           horizontal 
           showsHorizontalScrollIndicator={false} 
@@ -342,7 +346,7 @@ export default function CheckoutScreen() {
         </ScrollView>
 
         {/* SECTION 4: DELIVERY TIME SELECTOR */}
-        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Select Courier Arrival Interval</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>{t('cart:delivery_fee')}</Text>
         <View style={styles.timeSlotsRow}>
           {[
             { key: 'morning', label: 'Morning', hours: '09:00 - 12:00' },
@@ -372,7 +376,7 @@ export default function CheckoutScreen() {
         </View>
 
         {/* SECTION 5: CASH ON DELIVERY INFO */}
-        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>Secured Settlement Mode</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>{t('cart:checkout')}</Text>
         <GlassBox intensity={45} style={styles.paymentCard}>
           <View style={styles.paymentHeaderRow}>
             <View style={styles.paymentIconCircle}>
@@ -403,7 +407,7 @@ export default function CheckoutScreen() {
         </GlassBox>
 
         {/* SECTION 6: ORDER SUMMARY */}
-        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>Review Custom Recipes</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>{t('cart:order_summary')}</Text>
         <GlassBox intensity={30} style={styles.summaryContainer}>
           {cartItems.map((item, idx) => (
             <View key={item.id}>
@@ -415,7 +419,7 @@ export default function CheckoutScreen() {
                   <Text style={styles.summaryItemDetails} numberOfLines={2}>{item.details}</Text>
                 </View>
                 <View style={styles.summaryItemRightBlock}>
-                  <Text style={styles.summaryItemQty}>Qty: {item.quantity}</Text>
+                  <Text style={styles.summaryItemQty}>{t('cart:quantity')}: {item.quantity}</Text>
                   <Text style={styles.summaryItemPrice}>${(item.price * item.quantity).toFixed(2)}</Text>
                 </View>
               </View>
@@ -429,14 +433,14 @@ export default function CheckoutScreen() {
       <View style={styles.pricingSummaryStickyPanel}>
         <View style={styles.breakdownList}>
           <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>Subtotal</Text>
+            <Text style={styles.breakdownLabel}>{t('cart:subtotal')}</Text>
             <Text style={styles.breakdownValue}>${subtotal.toFixed(2)}</Text>
           </View>
           
           <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>White-Glove Refrigerated Courier</Text>
+            <Text style={styles.breakdownLabel}>{t('cart:delivery_fee')}</Text>
             <Text style={styles.breakdownValue}>
-              {isPickup ? 'Free' : `$${deliveryFee.toFixed(2)}`}
+              {isPickup ? t('common:included') : `$${deliveryFee.toFixed(2)}`}
             </Text>
           </View>
 
@@ -448,13 +452,13 @@ export default function CheckoutScreen() {
           )}
 
           <View style={[styles.breakdownRow, { marginTop: 4 }]}>
-            <Text style={styles.grandTotalLabel}>Grand Sum Total</Text>
+            <Text style={styles.grandTotalLabel}>{t('cart:total')}</Text>
             <Text style={styles.grandTotalValue}>${grandTotal.toFixed(2)}</Text>
           </View>
         </View>
 
         <Button 
-          title={processingOrder ? "Transmitting..." : "Place Gourmet Order"}
+          title={processingOrder ? t('common:loading') : t('cart:checkout')}
           leftIcon={<Award size={18} color="#FFFFFF" strokeWidth={2} />}
           loading={processingOrder}
           onPress={handlePlaceOrder}
@@ -492,14 +496,14 @@ export default function CheckoutScreen() {
                 </View>
               </View>
 
-              <Text style={styles.successMainTitle}>Gourmet Order Sealed</Text>
+              <Text style={styles.successMainTitle}>{t('orders:status_confirmed')}</Text>
               <Text style={styles.successSubtitle}>
                 Your pastry recipe has been transmitted to Chef Jean-Luc's workshop at Rue Royale, Paris.
               </Text>
 
               {/* Order reference code */}
               <View style={styles.refCodeContainer}>
-                <Text style={styles.refCodeLabel}>TRANSMISSION CODE</Text>
+                  <Text style={styles.refCodeLabel}>{t('orders:order_id', { id: '' }).toUpperCase()}</Text>
                 <Text style={styles.refCodeValue}>{orderReferenceCode}</Text>
               </View>
 
@@ -565,7 +569,7 @@ export default function CheckoutScreen() {
               {/* Track Live Delivery or Back to Boutique */}
               <View style={{ width: '100%', gap: 10 }}>
                 <Button 
-                  title="Track Live Delivery 🚚"
+                  title={t('orders:track_order')}
                   onPress={handleTrackOrderFinal}
                   style={styles.successTrackBtn}
                 />
@@ -573,7 +577,7 @@ export default function CheckoutScreen() {
                   style={styles.successSecondaryBtn}
                   onPress={handleConfirmOrderFinal}
                 >
-                  <Text style={styles.successSecondaryBtnText}>Return to Pastry Boutique</Text>
+                  <Text style={styles.successSecondaryBtnText}>{t('cart:continue_shopping')}</Text>
                 </TouchableOpacity>
               </View>
 

@@ -13,6 +13,8 @@ import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { Cake, Truck, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react-native';
 import { GlassBox } from '../components/ui/GlassBox';
 import { theme } from '../theme';
+import { useTranslation } from 'react-i18next';
+import { LanguagePicker } from '../components/ui/LanguagePicker';
 
 const { width } = Dimensions.get('window');
 
@@ -23,6 +25,7 @@ interface RoleSelectionScreenProps {
 }
 
 export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSelectRole }) => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   return (
@@ -46,7 +49,7 @@ export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSele
             <Sparkles size={14} color={theme.colors.secondary} />
             <Text style={styles.badgeText}>AUTHENTICATION</Text>
           </View>
-          <Text style={styles.title}>CHOOSE YOUR PORTAL</Text>
+          <Text style={styles.title}>{t('auth:role_selection')}</Text>
           <Text style={styles.subtitle}>Select an access level to enter the Fast Pastry digital ecosystem.</Text>
         </Animated.View>
 
@@ -60,7 +63,7 @@ export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSele
                     <Cake size={28} color={theme.colors.primary} strokeWidth={1.5} />
                   </View>
                   <View style={styles.cardTextContent}>
-                    <Text style={styles.cardTitle}>Client</Text>
+                    <Text style={styles.cardTitle}>{t('auth:role_customer')}</Text>
                   </View>
                   <View style={styles.arrowBox}>
                     <ChevronRight size={20} color={theme.colors.secondary} />
@@ -79,7 +82,7 @@ export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSele
                     <Truck size={28} color={theme.colors.secondary} strokeWidth={1.5} />
                   </View>
                   <View style={styles.cardTextContent}>
-                    <Text style={styles.cardTitle}>Delivery</Text>
+                    <Text style={styles.cardTitle}>{t('auth:role_driver')}</Text>
                   </View>
                   <View style={styles.arrowBox}>
                     <ChevronRight size={20} color={theme.colors.secondary} />
@@ -98,7 +101,7 @@ export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSele
                     <ShieldCheck size={28} color="#8C7A77" strokeWidth={1.5} />
                   </View>
                   <View style={styles.cardTextContent}>
-                    <Text style={styles.cardTitle}>Admin</Text>
+                    <Text style={styles.cardTitle}>{t('auth:role_admin')}</Text>
                   </View>
                   <View style={styles.arrowBox}>
                     <ChevronRight size={20} color={theme.colors.secondary} />
@@ -110,6 +113,10 @@ export const RoleSelectionScreen: React.FC<RoleSelectionScreenProps> = ({ onSele
         </View>
 
       </ScrollView>
+
+      <View style={{ position: 'absolute', top: 50, right: 20, zIndex: 100 }}>
+        <LanguagePicker compact />
+      </View>
     </View>
   );
 };

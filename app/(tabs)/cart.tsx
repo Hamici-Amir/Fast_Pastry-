@@ -11,6 +11,7 @@ import {
   Alert,
   ActivityIndicator
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
@@ -85,6 +86,7 @@ const MiniCakeSymbol = ({
 };
 
 export default function CartScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
@@ -174,11 +176,11 @@ export default function CartScreen() {
           return { ...item, quantity: item.quantity - 1 };
         } else {
           Alert.alert(
-            "Remove Creation",
-            "Do you wish to remove this bespoke pastry creation from your bag?",
+            t('cart:title'),
+            t('cart:item_removed'),
             [
-              { text: "Cancel", style: "cancel" },
-              { text: "Remove", style: "destructive", onPress: () => handleRemoveItem(id) }
+              { text: t('common:cancel'), style: "cancel" },
+              { text: t('cart:remove'), style: "destructive", onPress: () => handleRemoveItem(id) }
             ]
           );
         }
@@ -198,9 +200,9 @@ export default function CartScreen() {
       setDiscountPercent(0.1); // 10% discount
       setPromoError('');
       setPromoCodeInput('');
-      Alert.alert("Coupon Verified", "The Haute Pastry signature 10% discount has been applied to your basket.", [{ text: "Magnifique!" }]);
+      Alert.alert(t('cart:apply_coupon'), t('cart:item_added'), [{ text: t('common:ok') }]);
     } else {
-      setPromoError('Non-applicable voucher. Try "HAUTEPASTRY".');
+      setPromoError(t('cart:invalid_coupon'));
       setAppliedPromo(null);
       setDiscountPercent(0);
     }
@@ -215,7 +217,7 @@ export default function CartScreen() {
   // Checkout modal execution
   const handleCheckoutInitiation = () => {
     if (cartItems.length === 0) {
-      Alert.alert("Bag is Empty", "Please add a gourmet pastry creation to your bag to check out.");
+      Alert.alert(t('cart:empty'), t('cart:empty_message'));
       return;
     }
     setCheckoutInProgress(true);
@@ -237,10 +239,10 @@ export default function CartScreen() {
     setCartItems([]);
     removeAppliedPromo();
     Alert.alert(
-      "Order Transmitted",
-      `Order ${orderReference} is now active. Pastry chefs at Rue Royale have commenced preparation.`,
+      t('cart:cart_cleared'),
+      t('cart:item_added'),
       [
-        { text: "Gourmet Home", onPress: () => router.push('/catalogue' as any) }
+        { text: t('cart:continue_shopping'), onPress: () => router.push('/catalogue' as any) }
       ]
     );
   };
@@ -249,8 +251,8 @@ export default function CartScreen() {
     <View style={styles.container}>
       {/* Universal Modern Header */}
       <AppHeader 
-        title="My Shopping Bag"
-        subtitle="Boutique Fast Pastry"
+        title={t('cart:title')}
+        subtitle={t('cart:order_summary')}
         rightContent={
           <View className="w-11 h-11 items-center justify-center rounded-2xl bg-white/80 border border-[#D4A373]/20 shadow-sm mr-3">
             <ShoppingBag size={20} color="#D4A373" />
@@ -265,7 +267,7 @@ export default function CartScreen() {
         {/* Main List Deck */}
         {cartItems.length > 0 ? (
           <View style={styles.itemsBlockList}>
-            <Text style={styles.listSectionTitle}>Custom Creations ({cartItems.length})</Text>
+            <Text style={styles.listSectionTitle}>{t('cart:order_summary')} ({cartItems.length})</Text>
             
             {cartItems.map((item) => (
               <GlassBox key={item.id} intensity={80} style={styles.cartCardItem}>
@@ -313,17 +315,17 @@ export default function CartScreen() {
                     style={styles.editDesignBtnTouch}
                     onPress={() => {
                       Alert.alert(
-                        "Modify Design", 
-                        "Return to the Configuration Studio to adjust this pastry recipe?",
+                        t('common:edit'), 
+                        t('cart:item_added'),
                         [
-                          { text: "Cancel", style: "cancel" },
-                          { text: "Modify", onPress: () => router.push('/customizer' as any) }
+                          { text: t('common:cancel'), style: "cancel" },
+                          { text: t('common:edit'), onPress: () => router.push('/customizer' as any) }
                         ]
                       );
                     }}
                   >
                     <Sparkles size={13} color="#D4A373" style={{ marginRight: 4 }} />
-                    <Text style={styles.editDesignText}>Edit Recipe</Text>
+                    <Text style={styles.editDesignText}>{t('common:edit')}</Text>
                   </TouchableOpacity>
 
                   {/* Quantity & Trash selectors */}
@@ -364,10 +366,10 @@ export default function CartScreen() {
             <View style={styles.emptyBasketCircle}>
               <ShoppingBag size={36} color="rgba(212, 163, 115, 0.45)" />
             </View>
-            <Text style={styles.emptyBasketTitle}>Your bag is currently empty</Text>
-            <Text style={styles.emptyBasketSub}>Assemble an elegant, customized pastry in our Design Studio to place an order.</Text>
+            <Text style={styles.emptyBasketTitle}>{t('cart:empty')}</Text>
+            <Text style={styles.emptyBasketSub}>{t('cart:empty_message')}</Text>
             <Button 
-              title="Open Design Studio" 
+              title={t('cart:continue_shopping')} 
               style={styles.openStudioBtn}
               onPress={() => router.push('/customizer' as any)}
             />
@@ -377,7 +379,7 @@ export default function CartScreen() {
         {cartItems.length > 0 && (
           <>
             {/* Fulfillment Mode Selectors */}
-            <Text style={[styles.listSectionTitle, { marginTop: 24 }]}>Select Delivery Mode</Text>
+            <Text style={[styles.listSectionTitle, { marginTop: 24 }]}>{t('cart:delivery_fee')}</Text>
             <View style={styles.deliveryModeRow}>
               {/* Courier Mode Option */}
               <TouchableOpacity 
@@ -394,10 +396,10 @@ export default function CartScreen() {
                   <View style={styles.deliveryIconDisk}>
                     <Truck size={16} color={deliveryMode === 'courier' ? '#FFFFFF' : '#D4A373'} />
                   </View>
-                  <Text style={[styles.deliveryLabelTitle, deliveryMode === 'courier' && styles.deliveryLabelTitleActive]}>
-                    White-Glove Courier
-                  </Text>
-                  <Text style={styles.deliveryLabelDetail}>Refrigerated delivery • +$15.00</Text>
+                    <Text style={[styles.deliveryLabelTitle, deliveryMode === 'courier' && styles.deliveryLabelTitleActive]}>
+                      {t('cart:delivery_fee')}
+                    </Text>
+                    <Text style={styles.deliveryLabelDetail}>{t('cart:delivery_fee')}</Text>
                 </GlassBox>
               </TouchableOpacity>
 
@@ -416,10 +418,10 @@ export default function CartScreen() {
                   <View style={styles.deliveryIconDisk}>
                     <MapPin size={16} color={deliveryMode === 'pickup' ? '#FFFFFF' : '#D4A373'} />
                   </View>
-                  <Text style={[styles.deliveryLabelTitle, deliveryMode === 'pickup' && styles.deliveryLabelTitleActive]}>
-                    Boutique Pick-up
-                  </Text>
-                  <Text style={styles.deliveryLabelDetail}>Rue Royale, Paris • Free</Text>
+                    <Text style={[styles.deliveryLabelTitle, deliveryMode === 'pickup' && styles.deliveryLabelTitleActive]}>
+                      {t('cart:delivery_fee')}
+                    </Text>
+                    <Text style={styles.deliveryLabelDetail}>{t('common:included')}</Text>
                 </GlassBox>
               </TouchableOpacity>
             </View>
@@ -429,40 +431,40 @@ export default function CartScreen() {
               <Clock size={15} color="#D4A373" style={{ marginRight: 10 }} />
               <View style={{ flex: 1 }}>
                 <Text style={styles.timeSlotLabelTitle}>
-                  {deliveryMode === 'courier' ? 'Scheduled Refrigerated Courier Arrival:' : 'Scheduled Boutique Pick-up Time:'}
+                  {t('cart:order_summary')}
                 </Text>
                 <Text style={styles.timeSlotValueText}>{pickupTime}</Text>
               </View>
               <TouchableOpacity 
                 onPress={() => {
-                  Alert.alert("Select Delivery Time", "Gourmet pastry preparation requires 24 hours custom baking. Order timing is locked for tomorrow afternoon.", [{ text: "Understood" }]);
+                  Alert.alert(t('cart:order_summary'), t('cart:item_added'), [{ text: t('common:ok') }]);
                 }}
                 style={styles.timeSlotEditTouch}
               >
-                <Text style={styles.timeSlotEditText}>Adjust</Text>
+                <Text style={styles.timeSlotEditText}>{t('common:edit')}</Text>
               </TouchableOpacity>
             </GlassBox>
 
             {/* Promo Code Input widget */}
-            <Text style={[styles.listSectionTitle, { marginTop: 24 }]}>Boutique Voucher Code</Text>
+            <Text style={[styles.listSectionTitle, { marginTop: 24 }]}>{t('cart:apply_coupon')}</Text>
             {appliedPromo ? (
               <GlassBox intensity={60} style={styles.promoAppliedSuccessBox}>
                 <View style={styles.promoAppliedIconRow}>
                   <Check size={14} color="#FFFFFF" strokeWidth={3} />
                 </View>
                 <View style={{ flex: 1, marginLeft: 12 }}>
-                  <Text style={styles.promoAppliedCodeLabel}>Voucher "{appliedPromo}" Applied</Text>
-                  <Text style={styles.promoAppliedDiscountText}>10% discount on boutique subtotal</Text>
+                  <Text style={styles.promoAppliedCodeLabel}>{t('cart:apply_coupon')} "{appliedPromo}"</Text>
+                  <Text style={styles.promoAppliedDiscountText}>{t('cart:savings')}</Text>
                 </View>
                 <TouchableOpacity onPress={removeAppliedPromo} style={styles.promoRemoveTouch}>
-                  <Text style={styles.promoRemoveText}>Remove</Text>
+                  <Text style={styles.promoRemoveText}>{t('cart:remove')}</Text>
                 </TouchableOpacity>
               </GlassBox>
             ) : (
               <View style={styles.promoCodeInputRow}>
                 <GlassBox intensity={30} style={styles.promoCodeInputGlass}>
                   <TextInput 
-                    placeholder="Enter code (E.g. HAUTEPASTRY)"
+                    placeholder={t('cart:coupon_placeholder')}
                     placeholderTextColor="rgba(140, 122, 119, 0.45)"
                     value={promoCodeInput}
                     onChangeText={setPromoCodeInput}
@@ -474,7 +476,7 @@ export default function CartScreen() {
                   onPress={applyPromoCode}
                   style={styles.promoApplyTouchBtn}
                 >
-                  <Text style={styles.promoApplyBtnText}>Apply</Text>
+                  <Text style={styles.promoApplyBtnText}>{t('cart:apply_coupon')}</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -491,34 +493,34 @@ export default function CartScreen() {
           
           <View style={styles.pricingBreakdownList}>
             <View style={styles.pricingBreakdownRow}>
-              <Text style={styles.pricingBreakdownLabel}>Pastry Creations Subtotal</Text>
+              <Text style={styles.pricingBreakdownLabel}>{t('cart:subtotal')}</Text>
               <Text style={styles.pricingBreakdownValue}>${subtotal.toFixed(2)}</Text>
             </View>
 
             {deliveryFee > 0 && (
               <View style={styles.pricingBreakdownRow}>
-                <Text style={styles.pricingBreakdownLabel}>White-Glove Cold Courier Fee</Text>
+                <Text style={styles.pricingBreakdownLabel}>{t('cart:delivery_fee')}</Text>
                 <Text style={styles.pricingBreakdownValue}>${deliveryFee.toFixed(2)}</Text>
               </View>
             )}
 
             {discountPercent > 0 && (
               <View style={styles.pricingBreakdownRow}>
-                <Text style={[styles.pricingBreakdownLabel, { color: '#E06D6D' }]}>10% Signature Discount</Text>
+                <Text style={[styles.pricingBreakdownLabel, { color: '#E06D6D' }]}>{t('cart:savings')}</Text>
                 <Text style={[styles.pricingBreakdownValue, { color: '#E06D6D' }]}>-${discountAmount.toFixed(2)}</Text>
               </View>
             )}
 
             {/* Solid Grand Total */}
             <View style={[styles.pricingBreakdownRow, { marginTop: 4 }]}>
-              <Text style={styles.grandTotalLabel}>Grand Sum Total</Text>
+              <Text style={styles.grandTotalLabel}>{t('cart:total')}</Text>
               <Text style={styles.grandTotalValue}>${grandTotal.toFixed(2)}</Text>
             </View>
           </View>
 
           {/* Verification CTA Button */}
           <Button 
-            title={checkoutInProgress ? "Verifying..." : "Verify & Checkout"}
+            title={checkoutInProgress ? t('common:loading') : t('cart:checkout')}
             leftIcon={<Award size={18} color="#FFFFFF" strokeWidth={2} />}
             rightIcon={<ArrowRight size={16} color="#FFFFFF" />}
             loading={checkoutInProgress}
@@ -554,44 +556,15 @@ export default function CartScreen() {
                 </LinearGradient>
               </View>
 
-              <Text style={styles.sealChefApprovalTitle}>Chef's Signature Seal Approved</Text>
+              <Text style={styles.sealChefApprovalTitle}>{t('cart:checkout')}</Text>
               <Text style={styles.sealChefDescriptionSub}>
-                Your order is officially sealed by the head chef of **Boutique Fast Pastry**.
+                {t('cart:order_summary')}
               </Text>
-              
-              <View style={styles.signatureScriptBox}>
-                <Text style={styles.signatureScriptText}>Jean-Luc V.</Text>
-                <Text style={styles.signatureTitleLabel}>Maitre Pâtissier, Paris</Text>
-              </View>
-
-              {/* Checklist verification items */}
-              <View style={styles.sealChecklistDeck}>
-                <View style={styles.sealChecklistItemRow}>
-                  <ShieldCheck size={16} color="#D4A373" style={{ marginRight: 10, marginTop: 1 }} />
-                  <Text style={styles.sealChecklistItemText}>
-                    <Text style={{ fontFamily: 'Poppins-SemiBold' }}>Refrigerated Cloche:</Text> Pastry will be transported below 4°C in hand-blown custom packaging.
-                  </Text>
-                </View>
-
-                <View style={styles.sealChecklistItemRow}>
-                  <ShieldCheck size={16} color="#D4A373" style={{ marginRight: 10, marginTop: 1 }} />
-                  <Text style={styles.sealChecklistItemText}>
-                    <Text style={{ fontFamily: 'Poppins-SemiBold' }}>Calligraphy Card:</Text> Custom handwritten greetings cards are finalized in gold cacao script.
-                  </Text>
-                </View>
-
-                <View style={styles.sealChecklistItemRow}>
-                  <ShieldCheck size={16} color="#D4A373" style={{ marginRight: 10, marginTop: 1 }} />
-                  <Text style={styles.sealChecklistItemText}>
-                    <Text style={{ fontFamily: 'Poppins-SemiBold' }}>Guaranteed Craftsmanship:</Text> Built with selected tier details, flavor layers, and toppings.
-                  </Text>
-                </View>
-              </View>
 
               {/* Final submission buttons */}
               <View style={styles.sealActionBtnColumn}>
                 <Button 
-                  title={`Place Order • $${grandTotal.toFixed(2)}`}
+                  title={`${t('cart:checkout')} • $${grandTotal.toFixed(2)}`}
                   style={styles.sealConfirmButton}
                   onPress={handleConfirmOrderFinal}
                 />
@@ -600,7 +573,7 @@ export default function CartScreen() {
                   onPress={() => setShowSealModal(false)}
                   style={styles.sealCancelTouch}
                 >
-                  <Text style={styles.sealCancelText}>Refine Custom Recipe</Text>
+                  <Text style={styles.sealCancelText}>{t('cart:continue_shopping')}</Text>
                 </TouchableOpacity>
               </View>
 

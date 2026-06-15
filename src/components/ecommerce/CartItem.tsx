@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
 import { theme } from '../../theme';
 import { QuantitySelector } from './QuantitySelector';
 
@@ -22,6 +23,7 @@ export const CartItem: React.FC<CartItemProps> = ({
   onIncrease,
   onDecrease
 }) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <Image source={{ uri: imageUrl }} style={styles.image} contentFit="cover" />

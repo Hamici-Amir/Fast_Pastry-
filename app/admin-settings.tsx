@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from 'expo-router';
 import { BlurView } from 'expo-blur';
+import { useTranslation } from 'react-i18next';
+import { LanguagePicker } from '../src/components/ui/LanguagePicker';
 import { 
   Menu, 
   Bell, 
@@ -88,6 +90,7 @@ const SettingsSection: React.FC<{ title: string; children: React.ReactNode }> = 
 );
 
 export default function AdminSettingsScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
 
@@ -115,7 +118,7 @@ export default function AdminSettingsScreen() {
         stickyHeaderIndices={[0]}
       >
         <AppHeader 
-          title="System Settings" 
+          title={t('admin:settings')} 
           subtitle="Admin Hub" 
           showBell 
           onBellPress={() => {}}
@@ -128,11 +131,11 @@ export default function AdminSettingsScreen() {
                 <Sparkles size={14} color="#D4A373" />
                 <Text className="ml-2 font-cairo-medium text-gold/80 text-[10px] tracking-widest uppercase">Global Preferences</Text>
              </View>
-             <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">Settings</Text>
+             <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">{t('admin:settings')}</Text>
           </View>
 
           {/* PAYMENT SETTINGS */}
-          <SettingsSection title="Commercial & Payments">
+          <SettingsSection title={t('admin:settings')}>
              <SettingsItem 
                 icon={CreditCard} 
                 label="Stripe Integration" 
@@ -145,7 +148,7 @@ export default function AdminSettingsScreen() {
              <View className="h-[1px] w-full bg-rose-200/10" />
              <SettingsItem 
                 icon={BadgeCheck} 
-                label="Auto-Approve Orders" 
+                label={t('admin:manage_orders')} 
                 subLabel="Skip manual review for VIPs" 
                 type="toggle" 
                 value={settings.autoApprove}
@@ -155,7 +158,7 @@ export default function AdminSettingsScreen() {
           </SettingsSection>
 
           {/* DELIVERY SETTINGS */}
-          <SettingsSection title="Logistics & Dispatch">
+          <SettingsSection title={t('admin:fleet')}>
              <SettingsItem 
                 icon={Truck} 
                 label="Global Delivery Fee" 
@@ -177,7 +180,7 @@ export default function AdminSettingsScreen() {
           </SettingsSection>
 
           {/* SECURITY SETTINGS */}
-          <SettingsSection title="Access & Privacy">
+          <SettingsSection title={t('admin:settings')}>
              <SettingsItem 
                 icon={Shield} 
                 label="Multi-Factor Auth" 
@@ -198,19 +201,15 @@ export default function AdminSettingsScreen() {
              />
           </SettingsSection>
 
-          {/* APP SETTINGS */}
-          <SettingsSection title="Application Interface">
-             <SettingsItem 
-                icon={Globe} 
-                label="System Language" 
-                subLabel={settings.appLanguage} 
-                type="link" 
-                color="#D4A373"
-             />
+           {/* APP SETTINGS */}
+          <SettingsSection title={t('admin:settings')}>
+             <View className="py-3">
+                <LanguagePicker compact />
+             </View>
              <View className="h-[1px] w-full bg-rose-200/10" />
              <SettingsItem 
                 icon={Moon} 
-                label="Premium Dark Mode" 
+                label={t('profile:dark_mode')} 
                 subLabel="Enhanced OLED UI" 
                 type="toggle" 
                 value={settings.darkMode}
@@ -229,10 +228,10 @@ export default function AdminSettingsScreen() {
           </SettingsSection>
 
           {/* NOTIFICATION SETTINGS */}
-          <SettingsSection title="Communications">
+          <SettingsSection title={t('profile:notifications')}>
              <SettingsItem 
                 icon={Bell} 
-                label="Push Notifications" 
+                label={t('profile:notifications')} 
                 subLabel="Broadcast to all devices" 
                 type="toggle" 
                 value={settings.notificationsEnabled}
@@ -242,7 +241,7 @@ export default function AdminSettingsScreen() {
           </SettingsSection>
 
           <TouchableOpacity className="mt-4 mb-20 items-center">
-             <Text className="font-cairo-bold text-rose-400 text-[10px] uppercase tracking-widest">Reset Factory Defaults</Text>
+             <Text className="font-cairo-bold text-rose-400 text-[10px] uppercase tracking-widest">{t('admin:settings')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -252,11 +251,11 @@ export default function AdminSettingsScreen() {
          <BlurView intensity={90} tint="light" className="rounded-3xl border border-border/50 overflow-hidden shadow-2xl">
             <View className="flex-row items-center justify-between p-5 bg-white/40">
                <View>
-                  <Text className="font-poppins-bold text-adminText text-sm">Review Changes</Text>
+                   <Text className="font-poppins-bold text-adminText text-sm">{t('profile:save_changes')}</Text>
                   <Text className="font-cairo-medium text-adminMuted text-[10px]">3 unsaved modifications</Text>
                </View>
                <TouchableOpacity className="bg-gold px-6 py-2 rounded-xl shadow-sm">
-                  <Text className="font-poppins-bold text-white text-xs">Save All</Text>
+                   <Text className="font-poppins-bold text-white text-xs">{t('common:save')}</Text>
                </TouchableOpacity>
             </View>
          </BlurView>

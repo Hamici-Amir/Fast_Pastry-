@@ -1,0 +1,22 @@
+{
+  "title": "Your Cart",
+  "empty": "Your cart is empty",
+  "empty_message": "Add some delicious pastries to get started",
+  "total": "Total",
+  "subtotal": "Subtotal",
+  "delivery_fee": "Delivery Fee",
+  "tax": "Tax",
+  "checkout": "Proceed to Checkout",
+  "quantity": "Quantity",
+  "remove": "Remove",
+  "clear_cart": "Clear Cart",
+  "item_added": "Added to cart",
+  "item_removed": "Removed from cart",
+  "cart_cleared": "Cart cleared",
+  "continue_shopping": "Continue Shopping",
+  "order_summary": "Order Summary",
+  "apply_coupon": "Apply Coupon",
+  "coupon_placeholder": "Enter coupon code",
+  "invalid_coupon": "Invalid coupon code",
+  "savings": "Savings"
+}

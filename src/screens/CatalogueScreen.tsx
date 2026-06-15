@@ -13,6 +13,7 @@ import {
   Platform,
   ActivityIndicator
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Image } from 'expo-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -172,6 +173,7 @@ const PRICE_RANGES = [
 import { AppHeader } from '../components/common/AppHeader';
 
 export const CatalogueScreen = () => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   
   // Search & Filter State
@@ -243,10 +245,10 @@ export const CatalogueScreen = () => {
     <View style={styles.container}>
       {/* Universal Modern Header */}
       <AppHeader 
-        title="Catalogue"
-        subtitle="Exclusive Collection"
+        title={t('catalogue:title')}
+        subtitle={t('catalogue:subtitle')}
         showSearch
-        searchPlaceholder="Find your perfect cake..."
+        searchPlaceholder={t('catalogue:filter')}
         onSearchChange={setSearchQuery}
         rightContent={
           <TouchableOpacity 
@@ -326,10 +328,10 @@ export const CatalogueScreen = () => {
           />
         ) : (
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyMainText}>No Creations Found</Text>
-            <Text style={styles.emptySubText}>We couldn't find any cakes matching your current filters. Try refining your selections.</Text>
+            <Text style={styles.emptyMainText}>{t('catalogue:no_products')}</Text>
+            <Text style={styles.emptySubText}>{t('catalogue:filter')}</Text>
             <Button 
-              title="Clear All Filters" 
+                title={t('common:no_results')} 
               variant="outline" 
               size="sm"
               onPress={handleResetFilters}
@@ -354,7 +356,7 @@ export const CatalogueScreen = () => {
             <GlassBox intensity={95} style={styles.filterModalInnerGlass}>
               {/* Modal Header */}
               <View style={styles.modalHeaderRow}>
-                <Text style={styles.modalTitleText}>Refine Selection</Text>
+                <Text style={styles.modalTitleText}>{t('catalogue:filter')}</Text>
                 <TouchableOpacity onPress={() => setFilterModalVisible(false)} style={styles.modalCloseBtn}>
                   <X size={20} color={theme.colors.text} />
                 </TouchableOpacity>
@@ -362,7 +364,7 @@ export const CatalogueScreen = () => {
 
               <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginTop: 10 }}>
                 {/* Flavor Category */}
-                <Text style={styles.filterSectionTitle}>Flavors</Text>
+                <Text style={styles.filterSectionTitle}>{t('catalogue:category')}</Text>
                 <View style={styles.filterOptionsGrid}>
                   {FLAVORS.map(flavor => {
                     const isSelected = selectedFlavor === flavor;
@@ -389,7 +391,7 @@ export const CatalogueScreen = () => {
                 </View>
 
                 {/* Event Category */}
-                <Text style={styles.filterSectionTitle}>Occasions</Text>
+                <Text style={styles.filterSectionTitle}>{t('catalogue:category')}</Text>
                 <View style={styles.filterOptionsGrid}>
                   {EVENTS.map(event => {
                     const isSelected = selectedEvent === event;
@@ -416,7 +418,7 @@ export const CatalogueScreen = () => {
                 </View>
 
                 {/* Price Ranges */}
-                <Text style={styles.filterSectionTitle}>Investment Range</Text>
+                <Text style={styles.filterSectionTitle}>{t('catalogue:price')}</Text>
                 <View style={styles.priceRangesColumn}>
                   {PRICE_RANGES.map(range => {
                     const isSelected = selectedPriceRange.label === range.label;
@@ -441,10 +443,10 @@ export const CatalogueScreen = () => {
               {/* Action Buttons */}
               <View style={styles.modalActionButtonsRow}>
                 <TouchableOpacity onPress={handleResetFilters} style={styles.modalResetActionBtn}>
-                  <Text style={styles.modalResetBtnText}>Reset</Text>
+                  <Text style={styles.modalResetBtnText}>{t('common:cancel')}</Text>
                 </TouchableOpacity>
                 <Button 
-                  title="Apply Selection" 
+                  title={t('common:confirm')} 
                   onPress={() => setFilterModalVisible(false)}
                   style={styles.modalApplyButton}
                 />
@@ -497,7 +499,7 @@ export const CatalogueScreen = () => {
                       <View style={styles.previewRatingRow}>
                         <Star size={14} color="#D4A373" fill="#D4A373" />
                         <Text style={styles.previewRatingValue}>{activePreviewCake.rating}</Text>
-                        <Text style={styles.previewReviewCount}>({activePreviewCake.reviewsCount} organic reviews)</Text>
+                        <Text style={styles.previewReviewCount}>({activePreviewCake.reviewsCount} {t('catalogue:reviews')})</Text>
                       </View>
                     </View>
                     <Text style={styles.previewProductPriceText}>
@@ -509,13 +511,13 @@ export const CatalogueScreen = () => {
                   <View style={styles.previewModalSectionDivider} />
 
                   {/* Gourmet Narrative */}
-                  <Text style={styles.previewSectionHeading}>Sensory Profile</Text>
+                  <Text style={styles.previewSectionHeading}>{t('catalogue:description')}</Text>
                   <Text style={styles.previewDescriptionText}>
                     {activePreviewCake.description}
                   </Text>
 
                   {/* Customizable Sizing */}
-                  <Text style={styles.previewSectionHeading}>Gourmet Size Selection</Text>
+                  <Text style={styles.previewSectionHeading}>{t('catalogue:description')}</Text>
                   <View style={styles.sizingOptionsContainer}>
                     {[
                       { key: 'sm', label: 'Petite (6")', desc: 'Serves 4 - 6' },
@@ -547,10 +549,10 @@ export const CatalogueScreen = () => {
                   </View>
 
                   {/* Custom Inscription */}
-                  <Text style={styles.previewSectionHeading}>Gold-Leaf Custom Calligraphy</Text>
+                  <Text style={styles.previewSectionHeading}>{t('catalogue:description')}</Text>
                   <GlassBox intensity={30} style={styles.inscriptionInputWrapper}>
                     <TextInput 
-                      placeholder="E.g., Joyeux Anniversaire, Laurent..."
+                      placeholder={t('catalogue:ingredients')}
                       placeholderTextColor="rgba(140, 122, 119, 0.45)"
                       value={customWriting}
                       onChangeText={setCustomWriting}
@@ -558,13 +560,13 @@ export const CatalogueScreen = () => {
                       style={styles.calligraphyInputField}
                     />
                   </GlassBox>
-                  <Text style={styles.inscriptionCharacterLimit}>Max 40 luxury characters. Hand-piped in dark cacao.</Text>
+                  <Text style={styles.inscriptionCharacterLimit}>{t('catalogue:nutrition')}</Text>
                 </ScrollView>
 
                 {/* Bottom Add To Cart Execution Bar */}
                 <View style={[styles.executionBarContainer, { paddingBottom: Math.max(insets.bottom, 15) }]}>
                   <Button 
-                    title={addToCartLoading ? "Adding to Vault..." : `Curate Creation - $${(activePreviewCake.price + (selectedSize === 'sm' ? -15 : selectedSize === 'lg' ? 45 : 0)).toFixed(2)}`}
+                    title={addToCartLoading ? t('common:loading') : `${t('catalogue:add_to_cart')} - $${(activePreviewCake.price + (selectedSize === 'sm' ? -15 : selectedSize === 'lg' ? 45 : 0)).toFixed(2)}`}
                     leftIcon={<ShoppingBag size={20} color="#FFFFFF" strokeWidth={1.8} />}
                     loading={addToCartLoading}
                     onPress={handleAddToCart}

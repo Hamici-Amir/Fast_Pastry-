@@ -1,0 +1,14 @@
+{
+  "network_error": "Network error. Please check your connection.",
+  "server_error": "Server error. Please try again later.",
+  "session_expired": "Session expired. Please log in again.",
+  "unauthorized": "You are not authorized to perform this action.",
+  "not_found": "The requested resource was not found.",
+  "validation_error": "Please check your input and try again.",
+  "timeout_error": "Request timed out. Please try again.",
+  "unknown_error": "Something went wrong. Please try again.",
+  "cart_empty_error": "Your cart is empty. Add items before checking out.",
+  "payment_failed": "Payment failed. Please try another method.",
+  "location_denied": "Location access is required for delivery tracking.",
+  "camera_denied": "Camera access is required to scan QR codes."
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet, Switch } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -39,6 +40,7 @@ const NOTIFICATION_HISTORY = [
 const TARGETS = ['All Users', 'VIP Customers', 'Drivers', 'New Registered'];
 
 export default function AdminNotificationsScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
   const [activeTab, setActiveTab] = useState<'create' | 'history'>('create');
@@ -63,7 +65,7 @@ export default function AdminNotificationsScreen() {
         stickyHeaderIndices={[0]}
       >
         <AppHeader 
-          title="Broadcaster" 
+          title={t('admin:notifications')} 
           subtitle="Communication Hub" 
           showBell 
           onBellPress={() => {}}
@@ -76,7 +78,7 @@ export default function AdminNotificationsScreen() {
                 <Sparkles size={14} color="#D4A373" />
                 <Text className="ml-2 font-cairo-medium text-gold/80 text-[10px] tracking-widest uppercase">Communication Hub</Text>
              </View>
-             <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">Announcements</Text>
+             <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">{t('admin:notifications')}</Text>
           </View>
 
           {/* TABS */}
@@ -86,14 +88,14 @@ export default function AdminNotificationsScreen() {
                 className={`flex-1 flex-row items-center justify-center h-12 rounded-xl ${activeTab === 'create' ? 'bg-rose-400 shadow-sm' : ''}`}
              >
                 <Plus size={16} color={activeTab === 'create' ? '#FFFFFF' : '#8C7A77'} />
-                <Text className={`ml-2 font-poppins-bold text-sm ${activeTab === 'create' ? 'text-white' : 'text-[#8C7A77]'}`}>Broadcast</Text>
+                <Text className={`ml-2 font-poppins-bold text-sm ${activeTab === 'create' ? 'text-white' : 'text-[#8C7A77]'}`}>{t('admin:send_notification')}</Text>
              </TouchableOpacity>
              <TouchableOpacity 
                 onPress={() => setActiveTab('history')}
                 className={`flex-1 flex-row items-center justify-center h-12 rounded-xl ${activeTab === 'history' ? 'bg-rose-400 shadow-sm' : ''}`}
              >
                 <History size={16} color={activeTab === 'history' ? '#FFFFFF' : '#8C7A77'} />
-                <Text className={`ml-2 font-poppins-bold text-sm ${activeTab === 'history' ? 'text-white' : 'text-[#8C7A77]'}`}>Campaigns</Text>
+                <Text className={`ml-2 font-poppins-bold text-sm ${activeTab === 'history' ? 'text-white' : 'text-[#8C7A77]'}`}>{t('admin:notifications')}</Text>
              </TouchableOpacity>
           </View>
 
@@ -104,14 +106,14 @@ export default function AdminNotificationsScreen() {
                   <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFillObject} />
                   {/* Title & Message */}
                   <View>
-                     <Text className="font-cairo-bold text-[10px] text-gold/80 uppercase tracking-widest mb-3">Broadcast Content</Text>
+                      <Text className="font-cairo-bold text-[10px] text-gold/80 uppercase tracking-widest mb-3">{t('admin:send_notification')}</Text>
                      <TextInput 
-                        placeholder="Notification Title (e.g. Weekend Flash Sale)"
+                         placeholder={t('admin:notification_title')}
                         placeholderTextColor="#A18E8B"
                         className="bg-white/60 rounded-2xl border border-rose-200/50 px-5 h-14 text-adminText font-poppins text-sm mb-4 transition-all"
                      />
                      <TextInput 
-                        placeholder="Message Text..."
+                         placeholder={t('admin:notification_body')}
                         placeholderTextColor="#A18E8B"
                         multiline
                         textAlignVertical="top"
@@ -121,7 +123,7 @@ export default function AdminNotificationsScreen() {
 
                   {/* Target Audience */}
                   <View>
-                     <Text className="font-cairo-bold text-[10px] text-gold/80 uppercase tracking-widest mb-3">Target Audience</Text>
+                      <Text className="font-cairo-bold text-[10px] text-gold/80 uppercase tracking-widest mb-3">{t('admin:send_notification')}</Text>
                      <View className="flex-row flex-wrap gap-2">
                         {TARGETS.map((target, i) => {
                           const isActive = targetAudience === target;
@@ -143,14 +145,14 @@ export default function AdminNotificationsScreen() {
                      <View className="flex-row items-center justify-between p-4 bg-white/60 rounded-2xl border border-rose-200/30">
                         <View className="flex-row items-center">
                            <TrendingUp size={16} color="#4ADE80" />
-                           <Text className="ml-3 font-poppins-bold text-adminText text-sm">Boost Priority</Text>
+                           <Text className="ml-3 font-poppins-bold text-adminText text-sm">{t('admin:send_notification')}</Text>
                         </View>
                         <Switch trackColor={{ false: '#E2E8F0', true: '#4ADE80' }} thumbColor="#FFFFFF" />
                      </View>
                      <View className="flex-row items-center justify-between p-4 bg-white/60 rounded-2xl border border-rose-200/30">
                         <View className="flex-row items-center">
                            <Calendar size={16} color="#38BDF8" />
-                           <Text className="ml-3 font-poppins-bold text-adminText text-sm">Schedule for later</Text>
+                           <Text className="ml-3 font-poppins-bold text-adminText text-sm">{t('admin:send_notification')}</Text>
                         </View>
                         <Switch trackColor={{ false: '#E2E8F0', true: '#38BDF8' }} thumbColor="#FFFFFF" />
                      </View>
@@ -159,7 +161,7 @@ export default function AdminNotificationsScreen() {
                   <TouchableOpacity className="h-16 bg-rose-400 rounded-[24px] items-center justify-center shadow-2xl shadow-rose-400/30 mt-2">
                      <View className="flex-row items-center">
                         <Send size={20} color="#FFFFFF" />
-                        <Text className="ml-3 font-poppins-bold text-white text-lg uppercase">Send Notification</Text>
+                        <Text className="ml-3 font-poppins-bold text-white text-lg uppercase">{t('admin:send_notification')}</Text>
                      </View>
                   </TouchableOpacity>
                </View>

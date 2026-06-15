@@ -99,13 +99,13 @@ export default function CustomizerScreen() {
         <View style={styles.optionRow}>
           {sizes.map(size => (
             <OptionCard key={size.key} item={size} isSelected={selectedSize === size.key} onSelect={setSelectedSize} renderContent={(item) => (
-              <><Text style={[styles.cardLabel, selectedSize === item.key && { color: '#2C1B18' }]}>{item.label}</Text><Text style={styles.cardMeta}>{item.detail}</Text><Text style={styles.cardMeta}>{item.servings}</Text><Text style={styles.cardPrice}>{item.surcharge === 0 ? t('catalogue:included') : `+${t('common:currency')}${item.surcharge.toFixed(2)}`}</Text></>
+              <><Text style={[styles.cardLabel, selectedSize === item.key && { color: '#2C1B18' }]}>{item.label}</Text><Text style={styles.cardMeta}>{item.detail}</Text><Text style={styles.cardMeta}>{item.servings}</Text><Text style={styles.cardPrice}>{item.surcharge === 0 ? t('common:included') : `+${t('common:currency')}${item.surcharge.toFixed(2)}`}</Text></>
             )} />
           ))}
         </View>
         <Text style={styles.sectionTitle}>{t('catalogue:cus_gourmet_flavor')}</Text>
         <RadioOptionRow items={flavors} selected={selectedFlavor} onSelect={setSelectedFlavor} renderRight={(item) => (
-          <Text style={styles.surchargeText}>{item.surcharge === 0 ? t('catalogue:included') : `+${t('common:currency')}${item.surcharge.toFixed(2)}`}</Text>
+          <Text style={styles.surchargeText}>{item.surcharge === 0 ? t('common:included') : `+${t('common:currency')}${item.surcharge.toFixed(2)}`}</Text>
         )} />
         <Text style={styles.sectionTitle}>{t('catalogue:cus_artisanal_hue')}</Text>
         <ColorSwatchPicker colors={frostingColors} selected={selectedColor} onSelect={setSelectedColor} />
@@ -113,7 +113,7 @@ export default function CustomizerScreen() {
         <ToppingGrid toppings={toppings} active={activeToppings} onToggle={(key) => setActiveToppings(prev => prev.includes(key) ? prev.filter(i => i !== key) : [...prev, key])} />
         <Text style={styles.sectionTitle}>{t('catalogue:cus_bespoke_toppers')}</Text>
         <RadioOptionRow items={toppers} selected={selectedTopper} onSelect={setSelectedTopper} renderRight={(item) => (
-          <Text style={styles.surchargeText}>{item.surcharge === 0 ? t('catalogue:included') : `+${t('common:currency')}${item.surcharge.toFixed(2)}`}</Text>
+          <Text style={styles.surchargeText}>{item.surcharge === 0 ? t('common:included') : `+${t('common:currency')}${item.surcharge.toFixed(2)}`}</Text>
         )} />
       </ScrollView>
       <PriceFooter price={computedPrice} loading={orderingInProgress} onOrder={handleOrderSubmit} deliveryLabel={t('catalogue:cus_delivery_estimate')} totalLabel={t('catalogue:cus_custom_total')} ctaLabel={t('catalogue:cus_add_creation')} loadingLabel={t('catalogue:cus_designing')} currency={t('common:currency')} />

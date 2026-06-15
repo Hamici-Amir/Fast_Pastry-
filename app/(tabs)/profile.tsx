@@ -9,6 +9,7 @@ import {
   Dimensions,
   Alert
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { 
@@ -30,6 +31,7 @@ import Animated, {
 import { theme } from '../../src/theme';
 import { GlassBox } from '../../src/components/ui/GlassBox';
 import { AppHeader } from '../../src/components/common/AppHeader';
+import { LanguagePicker } from '../../src/components/ui/LanguagePicker';
 
 const { width } = Dimensions.get('window');
 
@@ -41,29 +43,30 @@ const SAVED_RECIPES = [
 ];
 
 export default function ProfileScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   
   const handleLogout = () => {
     Alert.alert(
-      "Sign Out",
-      "Are you sure you want to exit your boutique session?",
+      t('profile:logout'),
+      t('profile:logout_confirm'),
       [
-        { text: "Cancel", style: "cancel" },
-        { text: "Sign Out", style: "destructive" }
+        { text: t('common:cancel'), style: "cancel" },
+        { text: t('profile:logout'), style: "destructive" }
       ]
     );
   };
 
   const handleNavigation = (route: string) => {
-    Alert.alert("Navigation", `Navigating to ${route} settings...`);
+    Alert.alert(t('profile:settings'), `${route}...`);
   };
 
   return (
     <View style={styles.container}>
       {/* Universal Modern Header */}
       <AppHeader 
-        title="Maison Profile"
-        subtitle="Exclusive Member"
+        title={t('profile:title')}
+        subtitle={t('profile:edit_profile')}
         rightContent={
           <View className="flex-row gap-3 mr-3">
              <TouchableOpacity className="w-11 h-11 items-center justify-center rounded-2xl bg-white/80 border border-[#D4A373]/20 shadow-sm">
@@ -106,24 +109,24 @@ export default function ProfileScreen() {
         <Animated.View entering={FadeInDown.duration(600).delay(200)} style={styles.metricsContainer}>
           <GlassBox intensity={60} style={styles.metricCard}>
             <Text style={styles.metricValue}>14</Text>
-            <Text style={styles.metricLabel}>Orders</Text>
+            <Text style={styles.metricLabel}>{t('profile:order_history')}</Text>
           </GlassBox>
           <GlassBox intensity={60} style={styles.metricCard}>
             <Text style={styles.metricValue}>3</Text>
-            <Text style={styles.metricLabel}>Saved</Text>
+            <Text style={styles.metricLabel}>{t('profile:saved_recipes')}</Text>
           </GlassBox>
           <GlassBox intensity={60} style={styles.metricCard}>
             <Text style={styles.metricValue}>1</Text>
-            <Text style={styles.metricLabel}>Events</Text>
+            <Text style={styles.metricLabel}>{t('profile:personal_info')}</Text>
           </GlassBox>
         </Animated.View>
 
         {/* SAVED RECIPES CAROUSEL */}
         <Animated.View entering={FadeInDown.duration(600).delay(300)}>
           <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Bespoke Creations</Text>
+            <Text style={styles.sectionTitle}>{t('profile:saved_recipes')}</Text>
             <TouchableOpacity onPress={() => handleNavigation('All Creations')}>
-              <Text style={styles.seeAllText}>See All</Text>
+              <Text style={styles.seeAllText}>{t('common:next')}</Text>
             </TouchableOpacity>
           </View>
           
@@ -153,7 +156,7 @@ export default function ProfileScreen() {
 
         {/* UPCOMING CELEBRATION */}
         <Animated.View entering={FadeInDown.duration(600).delay(400)}>
-          <Text style={[styles.sectionTitle, { marginLeft: 24, marginTop: 30, marginBottom: 14 }]}>Upcoming Celebration</Text>
+          <Text style={[styles.sectionTitle, { marginLeft: 24, marginTop: 30, marginBottom: 14 }]}>{t('profile:personal_info')}</Text>
           <View style={{ paddingHorizontal: 24 }}>
             <GlassBox intensity={80} style={styles.eventCard}>
               <View style={styles.eventRow}>
@@ -161,11 +164,11 @@ export default function ProfileScreen() {
                   <Calendar size={20} color="#D4A373" />
                 </View>
                 <View style={styles.eventDetails}>
-                  <Text style={styles.eventTitle}>Anniversary Soirée</Text>
-                  <Text style={styles.eventDate}>12 Oct • 14 days remaining</Text>
+                  <Text style={styles.eventTitle}>{t('profile:personal_info')}</Text>
+                  <Text style={styles.eventDate}>{t('profile:personal_info')}</Text>
                 </View>
                 <TouchableOpacity style={styles.eventActionBtn}>
-                  <Text style={styles.eventActionText}>Curate</Text>
+                  <Text style={styles.eventActionText}>{t('common:edit')}</Text>
                 </TouchableOpacity>
               </View>
             </GlassBox>
@@ -174,7 +177,7 @@ export default function ProfileScreen() {
 
         {/* SETTINGS MENU */}
         <Animated.View entering={FadeInDown.duration(600).delay(500)} style={styles.menuContainer}>
-          <Text style={styles.menuSectionTitle}>Preferences & Logs</Text>
+          <Text style={styles.menuSectionTitle}>{t('profile:settings')}</Text>
           
           <GlassBox intensity={40} style={styles.menuListGlass}>
             
@@ -183,7 +186,7 @@ export default function ProfileScreen() {
                 <View style={[styles.menuIconBg, { backgroundColor: 'rgba(212, 163, 115, 0.15)' }]}>
                   <Clock size={18} color="#D4A373" />
                 </View>
-                <Text style={styles.menuItemTitle}>Pastry Logs (History)</Text>
+                <Text style={styles.menuItemTitle}>{t('profile:order_history')}</Text>
                 <ChevronRight size={18} color="#C5B6B3" />
               </TouchableOpacity>
             </Animated.View>
@@ -191,14 +194,15 @@ export default function ProfileScreen() {
             <View style={styles.menuDivider} />
 
             <Animated.View entering={FadeInDown.delay(680)}>
-              <TouchableOpacity style={styles.menuItemRow} onPress={() => handleNavigation('Language')}>
+              <View style={styles.menuItemRow}>
                 <View style={[styles.menuIconBg, { backgroundColor: 'rgba(140, 122, 119, 0.1)' }]}>
                   <Globe size={18} color="#8C7A77" />
                 </View>
-                <Text style={styles.menuItemTitle}>Global Preferences</Text>
-                <Text style={styles.menuItemValue}>English</Text>
-                <ChevronRight size={18} color="#C5B6B3" />
-              </TouchableOpacity>
+                <View style={{ flex: 1, marginLeft: 12 }}>
+                  <Text style={styles.menuItemTitle}>{t('profile:language')}</Text>
+                  <LanguagePicker />
+                </View>
+              </View>
             </Animated.View>
 
             <View style={styles.menuDivider} />
@@ -208,7 +212,7 @@ export default function ProfileScreen() {
                 <View style={[styles.menuIconBg, { backgroundColor: 'rgba(140, 122, 119, 0.1)' }]}>
                   <Bell size={18} color="#8C7A77" />
                 </View>
-                <Text style={styles.menuItemTitle}>Boutique Alerts</Text>
+                <Text style={styles.menuItemTitle}>{t('profile:notifications')}</Text>
                 <ChevronRight size={18} color="#C5B6B3" />
               </TouchableOpacity>
             </Animated.View>
@@ -220,7 +224,7 @@ export default function ProfileScreen() {
                 <View style={[styles.menuIconBg, { backgroundColor: 'rgba(140, 122, 119, 0.1)' }]}>
                   <Settings size={18} color="#8C7A77" />
                 </View>
-                <Text style={styles.menuItemTitle}>Account Settings</Text>
+                <Text style={styles.menuItemTitle}>{t('profile:settings')}</Text>
                 <ChevronRight size={18} color="#C5B6B3" />
               </TouchableOpacity>
             </Animated.View>
@@ -232,7 +236,7 @@ export default function ProfileScreen() {
         <Animated.View entering={FadeInDown.duration(600).delay(600)} style={styles.logoutContainer}>
           <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
             <LogOut size={18} color="#E06D6D" style={{ marginRight: 8 }} />
-            <Text style={styles.logoutText}>Sign Out of Boutique</Text>
+            <Text style={styles.logoutText}>{t('profile:logout')}</Text>
           </TouchableOpacity>
         </Animated.View>
 

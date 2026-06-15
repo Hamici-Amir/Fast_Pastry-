@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -33,14 +34,6 @@ import { AdminTabBar } from '../src/components/navigation/AdminTabBar';
 const { width } = Dimensions.get('window');
 
 // MOCK DATA
-// ... (rest of the file remains same until renderContent)
-const STATS = [
-  { label: 'Total Revenue', value: '$128.4K', change: '+14.2%', icon: DollarSign, color: '#D4A373' },
-  { label: 'Active Orders', value: '42', change: '+8.1%', icon: Package, color: '#60A5FA' },
-  { label: 'Deliveries', value: '840', change: '+12.5%', icon: Truck, color: '#4ADE80' },
-  { label: 'New Leads', value: '1.2K', change: '+24.3%', icon: Users, color: '#A78BFA' },
-];
-
 const RECENT_ORDERS = [
   { id: '#FP-9281', customer: 'Isabella V.', status: 'In Route', amount: '$184.00', time: '5m ago', color: '#60A5FA' },
   { id: '#FP-9280', customer: 'Marcus J.', status: 'Pending', amount: '$420.50', time: '12m ago', color: '#FBBF24' },
@@ -55,9 +48,17 @@ const QUICK_ACTIONS = [
 ];
 
 export default function AdminDashboardScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  const STATS = [
+    { label: t('admin:total_revenue'), value: '$128.4K', change: '+14.2%', icon: DollarSign, color: '#D4A373' },
+    { label: t('admin:total_orders'), value: '42', change: '+8.1%', icon: Package, color: '#60A5FA' },
+    { label: t('admin:orders_today'), value: '840', change: '+12.5%', icon: Truck, color: '#4ADE80' },
+    { label: t('admin:manage_customers'), value: '1.2K', change: '+24.3%', icon: Users, color: '#A78BFA' },
+  ];
 
   const renderContent = () => {
     switch(activeTab) {
@@ -71,7 +72,7 @@ export default function AdminDashboardScreen() {
           >
             <AppHeader 
               showSearch 
-              searchPlaceholder="Search analytics..." 
+              searchPlaceholder={t('common:search')} 
               showBell 
               hasNotifications 
               showAvatar 
@@ -81,12 +82,12 @@ export default function AdminDashboardScreen() {
           {/* GREETING */}
           <Animated.View entering={FadeInDown.duration(600)} className="mb-8">
             <View className="flex-row items-center mb-1">
-              <Text className="font-cairo-medium text-gold/80 text-xs tracking-widest uppercase">Admin Operations</Text>
+              <Text className="font-cairo-medium text-gold/80 text-xs tracking-widest uppercase">{t('admin:dashboard')}</Text>
               <View className="ml-2 px-2 py-[2px] bg-gold/10 rounded-md border border-gold/20">
                 <Text className="font-poppins-bold text-[8px] text-gold uppercase">Prime</Text>
               </View>
             </View>
-            <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">Command Center</Text>
+            <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">{t('admin:dashboard')}</Text>
           </Animated.View>
 
           {/* QUICK ACTIONS GRID */}
@@ -122,7 +123,7 @@ export default function AdminDashboardScreen() {
             <View className="flex-row justify-between items-start mb-6">
               <View>
                 <Text className="font-poppins-bold text-2xl text-adminText">$45,240.00</Text>
-                <Text className="font-cairo-medium text-[#8C7A77] text-sm">Monthly Revenue Projection</Text>
+                <Text className="font-cairo-medium text-[#8C7A77] text-sm">{t('admin:monthly_report')}</Text>
               </View>
               <View className="flex-row items-center px-3 py-1 bg-green-500/10 rounded-full border border-green-500/20">
                 <TrendingUp size={12} color="#4ADE80" />
@@ -144,10 +145,10 @@ export default function AdminDashboardScreen() {
             <View className="flex-row justify-between items-center mb-6">
               <View className="flex-row items-center">
                 <Activity size={20} color="#D4A373" />
-                <Text className="ml-2 font-poppins-bold text-xl text-adminText">Live Feed</Text>
+                <Text className="ml-2 font-poppins-bold text-xl text-adminText">{t('admin:dashboard')}</Text>
               </View>
               <TouchableOpacity className="flex-row items-center">
-                <Text className="font-cairo-bold text-gold text-sm">Real-time stats</Text>
+                <Text className="font-cairo-bold text-gold text-sm">{t('admin:weekly_report')}</Text>
                 <ArrowRight size={14} color="#D4A373" className="ml-1" />
               </TouchableOpacity>
             </View>
@@ -191,7 +192,7 @@ export default function AdminDashboardScreen() {
       case 'settings':
         return (
           <View className="flex-1 items-center justify-center">
-            <Text className="font-poppins-medium text-[#8C7A77]">Module under construction</Text>
+            <Text className="font-poppins-medium text-[#8C7A77]">{t('admin:no_data')}</Text>
           </View>
         );
     }

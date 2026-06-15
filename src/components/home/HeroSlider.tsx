@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { View, Text, Dimensions, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { 
@@ -40,6 +41,7 @@ const PROMOTIONS = [
 ];
 
 export const HeroSlider: React.FC = () => {
+  const { t } = useTranslation();
   const scrollX = useSharedValue(0);
   const scrollHandler = useAnimatedScrollHandler((event) => {
     scrollX.value = event.contentOffset.x;
@@ -110,7 +112,7 @@ const PromotionCard = ({ item, index, scrollX }: { item: any, index: number, scr
         className="absolute inset-0 justify-end p-8"
       >
         <Text className="font-cairo text-xs text-white/80 tracking-[2px] font-bold uppercase mb-1">
-            {item.title}
+            {t('home:promotions')}
         </Text>
         <Text className="font-poppins-bold text-2xl text-white tracking-wide leading-8">
             {item.subtitle}

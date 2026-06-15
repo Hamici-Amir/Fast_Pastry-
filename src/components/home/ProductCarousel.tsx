@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Image } from 'expo-image';
 import { Star, Heart, ShoppingBag } from 'lucide-react-native';
 import { theme } from '../../theme';
@@ -30,12 +31,13 @@ const PRODUCTS = [
 ];
 
 export const ProductCarousel: React.FC<{ title: string }> = ({ title }) => {
+  const { t } = useTranslation();
   return (
     <View className="mb-10">
       <View className="flex-row justify-between items-center px-6 mb-5">
         <Text className="font-poppins-bold text-2xl text-deepBrown tracking-wide">{title}</Text>
         <TouchableOpacity>
-            <Text className="font-poppins-bold text-secondary text-sm">See all</Text>
+            <Text className="font-poppins-bold text-secondary text-sm">{t('home:view_all')}</Text>
         </TouchableOpacity>
       </View>
 

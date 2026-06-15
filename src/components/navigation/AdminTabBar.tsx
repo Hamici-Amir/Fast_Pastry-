@@ -7,28 +7,39 @@ import Animated, {
   useAnimatedStyle,
   withSpring
 } from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 import { GlassBox } from '../ui/GlassBox';
 import * as Haptics from 'expo-haptics';
 
 const { width } = Dimensions.get('window');
 const TAB_BAR_WIDTH = Math.min(width - 40, 420);
 
-const TABS = [
-  { id: 'dashboard', icon: LayoutDashboard, label: 'Dash' },
-  { id: 'orders', icon: Package, label: 'Orders' },
-  { id: 'fleet', icon: Truck, label: 'Fleet' },
-  { id: 'customers', icon: Users, label: 'Users' },
-  { id: 'settings', icon: Settings, label: 'Settings' },
-];
-
 interface AdminTabBarProps {
   activeTab: string;
   onTabChange: (id: string) => void;
 }
 
+const TABS = [
+  { id: 'dashboard', icon: LayoutDashboard },
+  { id: 'orders', icon: Package },
+  { id: 'fleet', icon: Truck },
+  { id: 'customers', icon: Users },
+  { id: 'settings', icon: Settings },
+];
+
 export const AdminTabBar: React.FC<AdminTabBarProps> = ({ activeTab, onTabChange }) => {
+  const { t } = useTranslation();
   const tabWidth = TAB_BAR_WIDTH / TABS.length;
   const indicatorPosition = useSharedValue(0);
+
+  const tabs = TABS.map(tab => ({
+    ...tab,
+    label: tab.id === 'dashboard' ? t('admin:dashboard') :
+           tab.id === 'orders' ? t('admin:manage_orders') :
+           tab.id === 'fleet' ? t('admin:fleet') :
+           tab.id === 'customers' ? t('admin:manage_customers') :
+           t('admin:settings')
+  }));
   
   const currentVisibleIndex = TABS.findIndex(t => t.id === activeTab);
   const safeIndex = currentVisibleIndex >= 0 ? currentVisibleIndex : 0;
@@ -54,7 +65,7 @@ export const AdminTabBar: React.FC<AdminTabBarProps> = ({ activeTab, onTabChange
             animatedIndicatorStyle
           ]} 
         />
-        {TABS.map((tab) => {
+        {tabs.map((tab) => {
           const isFocused = activeTab === tab.id;
           return (
             <TouchableOpacity

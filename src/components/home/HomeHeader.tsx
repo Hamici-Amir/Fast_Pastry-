@@ -1,11 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AppHeader } from '../common/AppHeader';
 
 export const HomeHeader: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <AppHeader 
-      title="Jane Cooper 👋"
-      subtitle="Good Morning"
+      title={t('home:welcome_title')}
+      subtitle={t('home:welcome_subtitle')}
       showBell
       showAvatar
       hasNotifications

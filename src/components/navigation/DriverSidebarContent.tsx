@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Switch, Dimensions, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useRouter, usePathname } from 'expo-router';
 import { 
   LayoutDashboard, 
@@ -36,21 +37,21 @@ import Animated, {
 
 const { width } = Dimensions.get('window');
 
-const MENU_ITEMS = [
-  { icon: LayoutDashboard, label: 'Dashboard', screen: 'driver', path: '/driver' },
-  { icon: PackageSearch, label: 'Active Deliveries', screen: 'driver-delivery', path: '/driver-delivery' },
-  { icon: History, label: 'Delivery History', screen: 'driver', path: '/driver' },
-  { icon: Wallet, label: 'Earnings', screen: 'driver', path: '/driver' },
-  { icon: TrendingUp, label: 'Wallet', screen: 'driver', path: '/driver' },
-  { icon: Bell, label: 'Notifications', screen: 'driver-notifications', path: '/driver-notifications' },
-  { icon: FileText, label: 'Documents', screen: 'driver', path: '/driver' },
-  { icon: Star, label: 'Reviews & Ratings', screen: 'driver', path: '/driver' },
-  { icon: MessageCircle, label: 'Support Chat', screen: 'driver', path: '/driver' },
-  { icon: Settings, label: 'Settings', screen: 'driver-pending', path: '/driver-pending' },
+const getMenuItems = (t: any) => [
+  { icon: LayoutDashboard, label: t('driver:dashboard'), screen: 'driver', path: '/driver' },
+  { icon: PackageSearch, label: t('driver:active_delivery'), screen: 'driver-delivery', path: '/driver-delivery' },
+  { icon: History, label: t('driver:deliveries'), screen: 'driver', path: '/driver' },
+  { icon: Wallet, label: t('driver:earnings'), screen: 'driver', path: '/driver' },
+  { icon: TrendingUp, label: t('driver:earnings'), screen: 'driver', path: '/driver' },
+  { icon: Bell, label: t('driver:notifications'), screen: 'driver-notifications', path: '/driver-notifications' },
+  { icon: FileText, label: t('driver:dashboard'), screen: 'driver', path: '/driver' },
+  { icon: Star, label: t('driver:dashboard'), screen: 'driver', path: '/driver' },
+  { icon: MessageCircle, label: t('driver:dashboard'), screen: 'driver', path: '/driver' },
+  { icon: Settings, label: t('driver:settings'), screen: 'driver-pending', path: '/driver-pending' },
 ];
 
 const AnimatedMenuItem: React.FC<{ 
-    item: typeof MENU_ITEMS[0], 
+    item: ReturnType<typeof getMenuItems>[0], 
     index: number, 
     isActive: boolean, 
     onPress: (screen: string) => void 
@@ -102,6 +103,7 @@ const AnimatedMenuItem: React.FC<{
 };
 
 export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
+  const { t } = useTranslation();
   const [isOnline, setIsOnline] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
@@ -138,11 +140,11 @@ export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ na
                         <View className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-white shadow-sm ${isOnline ? 'bg-green-500' : 'bg-slate-300'}`} />
                     </View>
                     <View className="ml-6">
-                        <Text className="font-cairo-bold text-[#D4A373] text-[9px] tracking-[4px] uppercase mb-1 opacity-70">Logistics Partner</Text>
+                        <Text className="font-cairo-bold text-[#D4A373] text-[9px] tracking-[4px] uppercase mb-1 opacity-70">{t('driver:dashboard')}</Text>
                         <Text className="font-poppins-semibold text-xl text-[#2C1B18] tracking-tight">Michael Chang</Text>
                         <View className="flex-row items-center mt-1">
                             <Star size={10} color="#D4A373" />
-                            <Text className="ml-1.5 font-cairo-medium text-[9px] text-[#8C7A77] tracking-widest uppercase">4.98 Elite</Text>
+                            <Text className="ml-1.5 font-cairo-medium text-[9px] text-[#8C7A77] tracking-widest uppercase">{t('driver:rating')}</Text>
                         </View>
                     </View>
                 </View>
@@ -152,11 +154,11 @@ export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ na
 
             <View className="flex-row justify-between items-center px-2 pr-6">
                 <View>
-                    <Text className="font-cairo-medium text-[8px] text-[#8C7A77] uppercase tracking-widest">Runs Completed</Text>
+                    <Text className="font-cairo-medium text-[8px] text-[#8C7A77] uppercase tracking-widest">{t('driver:total_deliveries')}</Text>
                     <Text className="font-poppins-medium text-base text-[#2C1B18]">142</Text>
                 </View>
                 <View className="bg-[#D4A373]/10 px-3 py-1 rounded-xl">
-                    <Text className="font-cairo-bold text-[9px] text-[#D4A373] tracking-widest">PLATINUM</Text>
+                    <Text className="font-cairo-bold text-[9px] text-[#D4A373] tracking-widest">{t('driver:dashboard')}</Text>
                 </View>
             </View>
         </Animated.View>
@@ -169,8 +171,8 @@ export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ na
                         <CircleDot size={16} color={isOnline ? '#4ADE80' : '#8E99A8'} strokeWidth={1.5} />
                     </View>
                     <View className="ml-4">
-                        <Text className="font-poppins-medium text-xs text-[#2C1B18] uppercase tracking-widest">{isOnline ? 'On Duty' : 'Off Duty'}</Text>
-                        <Text className="font-cairo-medium text-[9px] text-[#8C7A77] mt-0.5 tracking-wide">{isOnline ? 'Active on routing stream' : 'Availability paused'}</Text>
+                        <Text className="font-poppins-medium text-xs text-[#2C1B18] uppercase tracking-widest">{isOnline ? t('driver:status_online') : t('driver:status_offline')}</Text>
+                        <Text className="font-cairo-medium text-[9px] text-[#8C7A77] mt-0.5 tracking-wide">{isOnline ? t('driver:dashboard') : t('driver:dashboard')}</Text>
                     </View>
                 </View>
                 <Switch 
@@ -184,7 +186,7 @@ export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ na
 
         {/* REFINED MENU items */}
         <View className="flex-1 gap-0.5">
-            {MENU_ITEMS.map((item, index) => (
+            {getMenuItems(t).map((item, index) => (
                 <AnimatedMenuItem 
                     key={index}
                     item={item}
@@ -201,7 +203,7 @@ export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ na
                 <View className="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 items-center justify-center">
                     <Globe size={14} color="#8C7A77" strokeWidth={1.5} />
                 </View>
-                <Text className="ml-4 font-cairo-bold text-[10px] text-[#8C7A77] uppercase tracking-widest">Language (EN)</Text>
+                <Text className="ml-4 font-cairo-bold text-[10px] text-[#8C7A77] uppercase tracking-widest">{t('profile:language')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -216,7 +218,7 @@ export const DriverSidebarContent: React.FC<DrawerContentComponentProps> = ({ na
                     router.replace('/' as any);
                 }}
             >
-                <Text className="font-poppins-bold text-red-400 tracking-[3px] uppercase text-[9px]">Terminer • Logout</Text>
+                <Text className="font-poppins-bold text-red-400 tracking-[3px] uppercase text-[9px]">{t('profile:logout')}</Text>
             </TouchableOpacity>
         </Animated.View>
       </ScrollView>

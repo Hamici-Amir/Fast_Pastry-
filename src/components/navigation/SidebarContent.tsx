@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Switch, Dimensions, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useRouter, usePathname } from 'expo-router';
 import { 
   Home, 
@@ -37,21 +38,21 @@ import Animated, {
 
 const { width } = Dimensions.get('window');
 
-const MENU_ITEMS = [
-  { icon: Home, label: 'Collection', screen: 'index', path: '/(tabs)' },
-  { icon: BookOpen, label: 'Catalogue', screen: 'catalogue', path: '/(tabs)/catalogue' },
-  { icon: Palette, label: 'Customizer', screen: 'customizer', path: '/(tabs)/customizer' },
-  { icon: ShoppingBag, label: 'Orders', screen: 'orders', path: '/(tabs)/cart' },
-  { icon: Heart, label: 'Favorites', screen: 'saved', path: '/(tabs)/catalogue' },
-  { icon: Calendar, label: 'Occasions', screen: 'calendar', path: '/(tabs)/calendar' },
-  { icon: Truck, label: 'Tracking', screen: 'tracking', path: '/tracking' },
-  { icon: Bell, label: 'Notifications', screen: 'notifications', path: '/notifications' },
-  { icon: MessageCircle, label: 'Concierge', screen: 'support', path: '/chat' },
-  { icon: Settings, label: 'Settings', screen: 'settings', path: '/settings' },
+const getMenuItems = (t: any) => [
+  { icon: Home, label: t('common:tab_home'), screen: 'index', path: '/(tabs)' },
+  { icon: BookOpen, label: t('common:tab_catalogue'), screen: 'catalogue', path: '/(tabs)/catalogue' },
+  { icon: Palette, label: t('common:tab_customizer'), screen: 'customizer', path: '/(tabs)/customizer' },
+  { icon: ShoppingBag, label: t('common:tab_orders'), screen: 'orders', path: '/(tabs)/cart' },
+  { icon: Heart, label: t('common:tab_home'), screen: 'saved', path: '/(tabs)/catalogue' },
+  { icon: Calendar, label: t('common:tab_home'), screen: 'calendar', path: '/(tabs)/calendar' },
+  { icon: Truck, label: t('common:tab_tracking'), screen: 'tracking', path: '/tracking' },
+  { icon: Bell, label: t('common:tab_home'), screen: 'notifications', path: '/notifications' },
+  { icon: MessageCircle, label: t('common:tab_home'), screen: 'support', path: '/chat' },
+  { icon: Settings, label: t('profile:settings'), screen: 'settings', path: '/settings' },
 ];
 
 const AnimatedMenuItem: React.FC<{ 
-    item: typeof MENU_ITEMS[0], 
+    item: ReturnType<typeof getMenuItems>[0], 
     index: number, 
     isActive: boolean, 
     onPress: (screen: string) => void 
@@ -103,6 +104,7 @@ const AnimatedMenuItem: React.FC<{
 };
 
 export const SidebarContent: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
+  const { t } = useTranslation();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -146,16 +148,16 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = ({ navigati
                     </View>
                 </View>
                 <View className="ml-6">
-                    <Text className="font-cairo-bold text-[#D4A373] text-[9px] tracking-[4px] uppercase mb-1 opacity-70">Privée Member</Text>
+                    <Text className="font-cairo-bold text-[#D4A373] text-[9px] tracking-[4px] uppercase mb-1 opacity-70">{t('common:tab_profile')}</Text>
                     <Text className="font-poppins-semibold text-xl text-[#2C1B18] tracking-tight">Jane Cooper</Text>
-                    <Text className="font-cairo-medium text-[9px] text-[#8C7A77] tracking-widest mt-1">2,450 POINTS</Text>
+                    <Text className="font-cairo-medium text-[9px] text-[#8C7A77] tracking-widest mt-1">{t('profile:order_history')}</Text>
                 </View>
             </View>
         </Animated.View>
 
         {/* REFINED MENU */}
         <View className="flex-1 gap-0.5">
-            {MENU_ITEMS.map((item, index) => (
+            {getMenuItems(t).map((item, index) => (
                 <AnimatedMenuItem 
                     key={index}
                     item={item}
@@ -169,7 +171,7 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = ({ navigati
         {/* CLEAN FOOTER */}
         <Animated.View entering={FadeInDown.delay(1000)} className="mt-16 pt-10 border-t border-[#F2EDE9] px-4">
             <View className="flex-row items-center justify-between mb-10">
-                <Text className="font-cairo-bold text-[10px] text-[#8C7A77] uppercase tracking-widest">Midnight Mode</Text>
+                <Text className="font-cairo-bold text-[10px] text-[#8C7A77] uppercase tracking-widest">{t('profile:dark_mode')}</Text>
                 <Switch 
                     value={isDarkMode} 
                     onValueChange={setIsDarkMode} 
@@ -190,11 +192,11 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = ({ navigati
                 }}
                 className="items-center py-4 rounded-2xl border border-[#D4A373]/10 bg-white shadow-sm shadow-[#D4A373]/5"
             >
-                <Text className="font-poppins-bold text-[#D4A373] tracking-[3px] uppercase text-[9px]">Sign Out</Text>
+                <Text className="font-poppins-bold text-[#D4A373] tracking-[3px] uppercase text-[9px]">{t('profile:logout')}</Text>
             </TouchableOpacity>
             
             <View className="mt-10 items-center">
-               <Text className="font-cairo-medium text-[8px] text-[#8C7A77]/30 tracking-[6px] uppercase">Fast Pastry • Edition 2026</Text>
+               <Text className="font-cairo-medium text-[8px] text-[#8C7A77]/30 tracking-[6px] uppercase">{t('common:ok')}</Text>
             </View>
         </Animated.View>
       </ScrollView>

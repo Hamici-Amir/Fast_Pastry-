@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { GlassBox } from '../src/components/ui/GlassBox';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
@@ -49,6 +50,7 @@ const DELIVERY = {
 };
 
 export default function DriverDeliveryScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('orders');
@@ -86,7 +88,7 @@ export default function DriverDeliveryScreen() {
               <Text style={styles.cakeName}>{DELIVERY.cake.name}</Text>
               <Text style={styles.cakeValue}>{DELIVERY.cake.value}</Text>
             </View>
-            <Text style={styles.cakeQty}>Quantity: {DELIVERY.cake.quantity}</Text>
+            <Text style={styles.cakeQty}>{t('cart:quantity')}: {DELIVERY.cake.quantity}</Text>
             <View style={styles.customizationBox}>
               <Text style={styles.customText}>"{DELIVERY.cake.customization}"</Text>
             </View>
@@ -119,7 +121,7 @@ export default function DriverDeliveryScreen() {
 
           {/* DESTINATION SECTION */}
           <Animated.View entering={FadeInDown.duration(600).delay(300)}>
-            <Text style={styles.sectionTitle}>DELIVERY ADDRESS</Text>
+            <Text style={styles.sectionTitle}>{t('orders:delivery_address').toUpperCase()}</Text>
             <GlassBox intensity={20} tint="dark" style={styles.addressCard}>
               <View style={styles.mapPreview}>
                 {/* Simulated Map Background */}
@@ -139,7 +141,7 @@ export default function DriverDeliveryScreen() {
               <TouchableOpacity activeOpacity={0.8}>
                 <LinearGradient colors={['rgba(212, 163, 115, 0.15)', 'rgba(212, 163, 115, 0.05)']} style={styles.navOutlineBtn}>
                   <Navigation size={18} color="#D4A373" style={{ marginRight: 8 }} />
-                  <Text style={styles.navOutlineText}>OPEN IN MAPS ({DELIVERY.destination.distance})</Text>
+                  <Text style={styles.navOutlineText}>{t('driver:navigate').toUpperCase()} ({DELIVERY.destination.distance})</Text>
                 </LinearGradient>
               </TouchableOpacity>
             </GlassBox>
@@ -147,12 +149,12 @@ export default function DriverDeliveryScreen() {
 
           {/* NOTES SECTION */}
           <Animated.View entering={FadeInDown.duration(600).delay(400)}>
-            <Text style={styles.sectionTitle}>DELIVERY INSTRUCTIONS</Text>
+            <Text style={styles.sectionTitle}>{t('driver:notes').toUpperCase()}</Text>
             <GlassBox intensity={15} tint="dark" style={styles.notesCard}>
               <View style={styles.noteRow}>
                 <FileText size={20} color="#60A5FA" style={{ marginTop: 2 }} />
                 <View style={styles.noteContent}>
-                  <Text style={styles.noteLabel}>Customer Note</Text>
+                  <Text style={styles.noteLabel}>{t('driver:customer')} Note</Text>
                   <Text style={styles.noteText}>{DELIVERY.notes}</Text>
                 </View>
               </View>
@@ -174,12 +176,12 @@ export default function DriverDeliveryScreen() {
             <TouchableOpacity activeOpacity={0.9} style={styles.arriveBtnWrap}>
               <LinearGradient colors={['#D4A373', '#B8860B']} style={styles.arriveBtn}>
                 <CheckCircle size={24} color="#18181A" style={{ marginRight: 12 }} />
-                <Text style={styles.arriveText}>MARK AS ARRIVED</Text>
+                <Text style={styles.arriveText}>{t('driver:mark_delivered').toUpperCase()}</Text>
               </LinearGradient>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.reportBtn}>
-              <Text style={styles.reportText}>Report Issue with Order</Text>
+              <Text style={styles.reportText}>{t('common:error')}</Text>
             </TouchableOpacity>
           </Animated.View>
 

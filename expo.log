@@ -1,0 +1,8 @@
+env: load .env
+env: export EXPO_PUBLIC_API_URL EXPO_PUBLIC_SOCKET_URL
+Starting project at C:\Users\ASUS\Desktop\Fast_Pastry\Fast_Pastry--main
+Starting Metro Bundler
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+
+C:\Users\ASUS\Desktop\Fast_Pastry\Fast_Pastry--main>

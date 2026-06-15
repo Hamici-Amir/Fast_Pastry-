@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, Dimensions, StyleSheet } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { Menu, Search, Bell, ArrowLeft } from 'lucide-react-native';
 import { Image } from 'expo-image';
 import { useNavigation } from 'expo-router';
@@ -58,7 +59,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   showBack,
   onBackPress,
   showSearch,
-  searchPlaceholder = "Search...",
+  searchPlaceholder,
   rightContent,
   showAvatar,
   avatarUri,
@@ -70,8 +71,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   transparent,
   noBorder
 }) => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const placeholder = searchPlaceholder || t('common:search');
 
   return (
     <Animated.View entering={FadeIn.duration(600)} style={{ zIndex: 50 }}>
@@ -117,7 +120,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               >
                 <Search size={18} color="#8C7A77" />
                 <TextInput 
-                  placeholder={searchPlaceholder} 
+                  placeholder={placeholder} 
                   placeholderTextColor="#A18E8B"
                   className="flex-1 ml-3 text-[#2C1B18] font-poppins text-[14px]"
                   onChangeText={onSearchChange}

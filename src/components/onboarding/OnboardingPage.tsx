@@ -11,6 +11,7 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '../../theme';
 import { Button } from '../ui/Button';
+import { useTranslation } from 'react-i18next';
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,6 +34,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({
   scrollX,
   index,
 }) => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   // Dynamic Scroll Parallax Styles
@@ -219,7 +221,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({
         style={[{ width: '100%', marginBottom: 15 }, animStyleButton]}
       >
         <Button 
-          title={isLast ? "Begin Journey" : "Next Step"} 
+          title={isLast ? t('common:finish') : t('common:next')} 
           onPress={onNext}
           size="lg"
           variant="primary"

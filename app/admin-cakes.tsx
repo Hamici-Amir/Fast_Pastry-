@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -76,6 +77,7 @@ const CAKES = [
 const CATEGORIES = ['All Cakes', 'Signature', 'Premium', 'Wedding', 'Summer', 'Classic'];
 
 export default function AdminCakesScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
   const router = useRouter();
@@ -97,7 +99,7 @@ export default function AdminCakesScreen() {
         stickyHeaderIndices={[0]}
       >
         <AppHeader 
-          title="Catalog" 
+          title={t('admin:manage_products')} 
           subtitle="Admin Hub" 
           showBell 
           hasNotifications
@@ -111,14 +113,14 @@ export default function AdminCakesScreen() {
                 <Sparkles size={14} color="#D4A373" />
                 <Text className="ml-2 font-cairo-medium text-gold/80 text-[10px] tracking-widest uppercase">Premium Inventory</Text>
               </View>
-              <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">Cakes Library</Text>
+              <Text className="font-poppins-bold text-3xl text-adminText tracking-tightest">{t('admin:manage_products')}</Text>
             </View>
             <TouchableOpacity 
               onPress={() => router.push('/admin-cake-editor')}
               className="bg-gold px-4 py-3 rounded-2xl flex-row items-center shadow-xl shadow-[#D4A373]/20"
             >
               <Plus size={18} color="#FFFFFF" />
-              <Text className="ml-2 font-poppins-bold text-white text-sm">Add Cake</Text>
+              <Text className="ml-2 font-poppins-bold text-white text-sm">{t('admin:add_product')}</Text>
             </TouchableOpacity>
           </View>
 
@@ -127,7 +129,7 @@ export default function AdminCakesScreen() {
             <View className="flex-row items-center h-12 bg-surface rounded-2xl px-4 border border-[#D4A373]/10 mb-4 shadow-sm">
               <Search size={18} color="#8C7A77" />
               <TextInput 
-                placeholder="Search catalog..." 
+                placeholder={t('common:search')} 
                 placeholderTextColor="#A18E8B"
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -195,8 +197,8 @@ export default function AdminCakesScreen() {
 
           {filteredCakes.length === 0 && (
             <View className="py-20 items-center justify-center">
-              <Text className="font-poppins-bold text-adminText text-lg">No cakes found</Text>
-              <Text className="font-cairo-medium text-adminMuted text-sm mt-2">Try a different category or search term</Text>
+              <Text className="font-poppins-bold text-adminText text-lg">{t('admin:no_data')}</Text>
+              <Text className="font-cairo-medium text-adminMuted text-sm mt-2">{t('admin:no_data')}</Text>
             </View>
           )}
         </View>

@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import "../global.css";
+import '../src/i18n';
 import React, { useState } from 'react';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';

@@ -7,28 +7,39 @@ import Animated, {
   useAnimatedStyle,
   withSpring
 } from 'react-native-reanimated';
+import { useTranslation } from 'react-i18next';
 import { GlassBox } from '../ui/GlassBox';
 import * as Haptics from 'expo-haptics';
 
 const { width } = Dimensions.get('window');
 const TAB_BAR_WIDTH = Math.min(width - 40, 420);
 
-const TABS = [
-  { id: 'dashboard', icon: LayoutDashboard, label: 'Dash' },
-  { id: 'orders', icon: PackageSearch, label: 'Orders' },
-  { id: 'navigation', icon: MapPin, label: 'Nav' },
-  { id: 'earnings', icon: Wallet, label: 'Earn' },
-  { id: 'profile', icon: User, label: 'Me' },
-];
-
 interface DriverTabBarProps {
   activeTab: string;
   onTabChange: (id: string) => void;
 }
 
+const TABS = [
+  { id: 'dashboard', icon: LayoutDashboard },
+  { id: 'orders', icon: PackageSearch },
+  { id: 'navigation', icon: MapPin },
+  { id: 'earnings', icon: Wallet },
+  { id: 'profile', icon: User },
+];
+
 export const DriverTabBar: React.FC<DriverTabBarProps> = ({ activeTab, onTabChange }) => {
+  const { t } = useTranslation();
   const tabWidth = TAB_BAR_WIDTH / TABS.length;
   const indicatorPosition = useSharedValue(0);
+
+  const tabs = TABS.map(tab => ({
+    ...tab,
+    label: tab.id === 'dashboard' ? t('driver:dashboard') :
+           tab.id === 'orders' ? t('driver:orders') :
+           tab.id === 'navigation' ? t('driver:navigation') :
+           tab.id === 'earnings' ? t('driver:earnings') :
+           t('driver:profile')
+  }));
   
   const currentVisibleIndex = TABS.findIndex(t => t.id === activeTab);
   const safeIndex = currentVisibleIndex >= 0 ? currentVisibleIndex : 0;
@@ -54,7 +65,7 @@ export const DriverTabBar: React.FC<DriverTabBarProps> = ({ activeTab, onTabChan
             animatedIndicatorStyle
           ]} 
         />
-        {TABS.map((tab) => {
+        {tabs.map((tab) => {
           const isFocused = activeTab === tab.id;
           return (
             <TouchableOpacity

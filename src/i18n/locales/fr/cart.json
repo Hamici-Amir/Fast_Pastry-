@@ -1,0 +1,22 @@
+{
+  "title": "Votre panier",
+  "empty": "Votre panier est vide",
+  "empty_message": "Ajoutez de délicieuses pâtisseries pour commencer",
+  "total": "Total",
+  "subtotal": "Sous-total",
+  "delivery_fee": "Frais de livraison",
+  "tax": "TVA",
+  "checkout": "Passer la commande",
+  "quantity": "Quantité",
+  "remove": "Retirer",
+  "clear_cart": "Vider le panier",
+  "item_added": "Ajouté au panier",
+  "item_removed": "Retiré du panier",
+  "cart_cleared": "Panier vidé",
+  "continue_shopping": "Continuer mes achats",
+  "order_summary": "Récapitulatif de la commande",
+  "apply_coupon": "Appliquer un coupon",
+  "coupon_placeholder": "Entrez le code promo",
+  "invalid_coupon": "Code promo invalide",
+  "savings": "Économies"
+}

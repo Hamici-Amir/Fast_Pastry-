@@ -16,6 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import { GlassBox } from '../src/components/ui/GlassBox';
 import { DriverTabBar } from '../src/components/navigation/DriverTabBar';
@@ -101,6 +102,7 @@ const INITIAL_NOTIFICATIONS: PastryNotification[] = [
 ];
 
 export default function DriverNotificationsScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [notifications, setNotifications] = useState<PastryNotification[]>(INITIAL_NOTIFICATIONS);
@@ -171,8 +173,8 @@ export default function DriverNotificationsScreen() {
         showsVerticalScrollIndicator={false}
       >
         <AppHeader 
-          title="Pastry Alerts" 
-          subtitle="Dispatch Feed" 
+          title={t('driver:notifications')} 
+          subtitle={t('driver:notifications')} 
           showBack 
           onBackPress={() => router.back()}
           showBell 
@@ -182,10 +184,10 @@ export default function DriverNotificationsScreen() {
         {/* ================= CONTROLLER LINKS ================= */}
         <View style={styles.headerActions}>
           <Text style={styles.feedStatus}>
-            {notifications.filter(n => n.unread).length} UNREAD MESSAGE(S)
+            {notifications.filter(n => n.unread).length} {t('driver:notifications').toUpperCase()}
           </Text>
           <TouchableOpacity activeOpacity={0.7} onPress={markAllRead}>
-            <Text style={styles.markReadText}>Mark all read</Text>
+            <Text style={styles.markReadText}>{t('common:confirm')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -199,42 +201,42 @@ export default function DriverNotificationsScreen() {
             onPress={() => setFilter('all')} 
             style={[styles.filterTab, filter === 'all' && styles.filterTabActive]}
           >
-            <Text style={[styles.filterLabel, filter === 'all' && styles.filterLabelActive]}>All</Text>
+            <Text style={[styles.filterLabel, filter === 'all' && styles.filterLabelActive]}>{t('orders:active')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             onPress={() => setFilter('delivery')} 
             style={[styles.filterTab, filter === 'delivery' && styles.filterTabActive]}
           >
-            <Text style={[styles.filterLabel, filter === 'delivery' && styles.filterLabelActive]}>Deliveries</Text>
+            <Text style={[styles.filterLabel, filter === 'delivery' && styles.filterLabelActive]}>{t('driver:deliveries')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             onPress={() => setFilter('payout')} 
             style={[styles.filterTab, filter === 'payout' && styles.filterTabActive]}
           >
-            <Text style={[styles.filterLabel, filter === 'payout' && styles.filterLabelActive]}>Payouts</Text>
+            <Text style={[styles.filterLabel, filter === 'payout' && styles.filterLabelActive]}>{t('driver:earnings')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             onPress={() => setFilter('performance')} 
             style={[styles.filterTab, filter === 'performance' && styles.filterTabActive]}
           >
-            <Text style={[styles.filterLabel, filter === 'performance' && styles.filterLabelActive]}>Performance</Text>
+            <Text style={[styles.filterLabel, filter === 'performance' && styles.filterLabelActive]}>{t('driver:rating')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             onPress={() => setFilter('announcement')} 
             style={[styles.filterTab, filter === 'announcement' && styles.filterTabActive]}
           >
-            <Text style={[styles.filterLabel, filter === 'announcement' && styles.filterLabelActive]}>Announcements</Text>
+            <Text style={[styles.filterLabel, filter === 'announcement' && styles.filterLabelActive]}>{t('common:info')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity 
             onPress={() => setFilter('support')} 
             style={[styles.filterTab, filter === 'support' && styles.filterTabActive]}
           >
-            <Text style={[styles.filterLabel, filter === 'support' && styles.filterLabelActive]}>Support</Text>
+            <Text style={[styles.filterLabel, filter === 'support' && styles.filterLabelActive]}>{t('common:save')}</Text>
           </TouchableOpacity>
         </ScrollView>
 
@@ -245,8 +247,8 @@ export default function DriverNotificationsScreen() {
               <View style={styles.emptyCircle}>
                 <CheckCircle size={32} color="#D4A373" />
               </View>
-              <Text style={styles.emptyTitle}>Alert Ledger Clear</Text>
-              <Text style={styles.emptySub}>You have no notifications matching this category.</Text>
+              <Text style={styles.emptyTitle}>{t('driver:notifications')}</Text>
+              <Text style={styles.emptySub}>{t('common:no_results')}</Text>
             </Animated.View>
           ) : (
             filteredNotifications.map((item, index) => {

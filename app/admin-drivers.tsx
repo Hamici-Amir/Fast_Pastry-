@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -72,17 +73,23 @@ const DRIVERS: any[] = [
   },
 ];
 
-const STATS = [
-  { label: 'Active Fleet', value: '42', icon: Truck, color: '#4ADE80' },
-  { label: 'Pending Apps', value: '7', icon: Clock, color: '#FBBF24' },
-  { label: 'Fleet ROI', value: '84%', icon: TrendingUp, color: '#38BDF8' },
-];
-
-const FILTERS = ['All Drivers', 'Online', 'Offline', 'Pending Approval'];
-
 export default function AdminDriversScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const STATS = [
+    { label: t('admin:active_drivers'), value: '42', icon: Truck, color: '#4ADE80' },
+    { label: t('admin:pending_orders'), value: '7', icon: Clock, color: '#FBBF24' },
+    { label: t('admin:revenue'), value: '84%', icon: TrendingUp, color: '#38BDF8' },
+  ];
+
+  const FILTERS = [
+    { key: 'All Drivers', label: t('admin:dashboard') },
+    { key: 'Online', label: t('driver:status_online') },
+    { key: 'Offline', label: t('driver:status_offline') },
+    { key: 'Pending Approval', label: t('orders:status_pending') },
+  ];
+
   const [activeFilter, setActiveFilter] = useState('All Drivers');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -106,7 +113,7 @@ export default function AdminDriversScreen() {
         stickyHeaderIndices={[0]}
       >
         <AppHeader 
-          title="Drive Force" 
+          title={t('admin:manage_drivers')} 
           subtitle="Fleet Management" 
           showBell 
           hasNotifications
@@ -119,7 +126,7 @@ export default function AdminDriversScreen() {
                 <Sparkles size={14} color="#D4A373" />
                 <Text className="ml-2 font-cairo-medium text-gold/80 text-[10px] tracking-widest uppercase">Fleet Management</Text>
              </View>
-             <Text className="font-poppins-bold text-3xl text-adminText">Drive Force</Text>
+             <Text className="font-poppins-bold text-3xl text-adminText">{t('admin:manage_drivers')}</Text>
           </View>
 
           {/* FLEET ANALYTICS */}
@@ -142,7 +149,7 @@ export default function AdminDriversScreen() {
             <View className="flex-row items-center h-12 bg-surface rounded-2xl px-4 border border-[#D4A373]/10 mb-4 shadow-sm">
               <Search size={18} color="#8C7A77" />
               <TextInput 
-                placeholder="Search fleet by name or ID..." 
+                placeholder={t('common:search')} 
                 placeholderTextColor="#A18E8B"
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -154,24 +161,24 @@ export default function AdminDriversScreen() {
             </View>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
-              {FILTERS.map((filter, i) => ( activeFilter === filter ? (
+              {FILTERS.map((filter, i) => ( activeFilter === filter.key ? (
                 <TouchableOpacity 
                    key={i}
-                   onPress={() => setActiveFilter(filter)}
+                   onPress={() => setActiveFilter(filter.key)}
                    className="px-5 py-2 rounded-xl bg-gold border border-gold shadow-sm"
                 >
                   <Text className="font-poppins-bold text-xs text-white">
-                    {filter}
+                    {filter.label}
                   </Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity 
                   key={i}
-                  onPress={() => setActiveFilter(filter)}
+                  onPress={() => setActiveFilter(filter.key)}
                   className="px-5 py-2 rounded-xl border border-[#D4A373]/10 bg-surface shadow-sm"
                 >
                   <Text className="font-poppins-bold text-xs text-adminMuted">
-                    {filter}
+                    {filter.label}
                   </Text>
                 </TouchableOpacity>
               )))}
@@ -203,8 +210,8 @@ export default function AdminDriversScreen() {
                  <View className="w-16 h-16 rounded-full bg-[#D4A373]/5 items-center justify-center mb-4 border border-[#D4A373]/10">
                     <AlertCircle size={32} color="#8C7A77" />
                  </View>
-                 <Text className="font-poppins-bold text-adminText text-lg">No personnel found</Text>
-                 <Text className="font-cairo-medium text-adminMuted text-sm text-center px-10">Adjust your filters to see more members of the delivery fleet.</Text>
+                 <Text className="font-poppins-bold text-adminText text-lg">{t('admin:no_data')}</Text>
+                 <Text className="font-cairo-medium text-adminMuted text-sm text-center px-10">{t('admin:no_data')}</Text>
               </View>
             )}
           </View>

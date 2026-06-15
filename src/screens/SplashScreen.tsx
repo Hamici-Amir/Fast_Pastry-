@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Sparkles, Heart } from 'lucide-react-native';
 import { GlassBox } from '../components/ui/GlassBox';
+import { useTranslation } from 'react-i18next';
 
 const { width, height } = Dimensions.get('window');
 
@@ -86,6 +87,7 @@ const GoldDustParticle = ({ delay, startX, startY }: { delay: number, startX: nu
 };
 
 export const SplashScreen = ({ onFinish }: { onFinish?: () => void }) => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
 
   // Animation controller values using refs
@@ -370,7 +372,7 @@ export const SplashScreen = ({ onFinish }: { onFinish?: () => void }) => {
             </View>
             
             <Text style={styles.loaderText}>
-              CURATING YOUR GOURMET EXPERIENCE...
+              {t('common:loading')}
             </Text>
           </View>
 

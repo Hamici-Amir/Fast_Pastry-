@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import * as Haptics from 'expo-haptics';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { GlassBox } from '../ui/GlassBox';
@@ -9,10 +10,12 @@ const CATEGORIES = [
 ];
 
 export const CategoryList: React.FC = () => {
+  const { t } = useTranslation();
   const [active, setActive] = useState('All');
 
   return (
     <View style={styles.container}>
+      <Text style={styles.sectionTitle}>{t('home:categories')}</Text>
       <ScrollView 
         horizontal 
         showsHorizontalScrollIndicator={false}
@@ -119,6 +122,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#D4A373',
     borderRadius: 2,
     marginTop: 6,
+  },
+  sectionTitle: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 16,
+    color: '#2C1B18',
+    paddingHorizontal: 24,
+    marginBottom: 14,
   },
   label: {
     fontFamily: 'Poppins-Medium',

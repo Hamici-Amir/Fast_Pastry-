@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation, useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { DriverTabBar } from '../src/components/navigation/DriverTabBar';
 import { DriverDashboardView } from '../src/screens/driver/DriverDashboardView';
 import { DriverOrdersView } from '../src/screens/driver/DriverOrdersView';
@@ -15,6 +16,7 @@ import { Bell, Menu } from 'lucide-react-native';
 import { AppHeader } from '../src/components/common/AppHeader';
 
 export default function DriverDashboardScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
   const router = useRouter();
@@ -40,13 +42,13 @@ export default function DriverDashboardScreen() {
   const getHeaderDetails = () => {
     switch(activeTab) {
       case 'orders':
-        return { subtitle: 'Active Deliveries', title: 'Fast Pastry' };
+        return { subtitle: t('driver:active_delivery'), title: 'Fast Pastry' };
       case 'navigation':
-        return { subtitle: 'Live GPS Routing', title: 'Fragile Transit' };
+        return { subtitle: t('driver:navigation'), title: 'Fragile Transit' };
       case 'earnings':
-        return { subtitle: 'Fintech Core', title: 'Earnings Ledger' };
+        return { subtitle: t('driver:earnings'), title: t('driver:earnings') };
       case 'profile':
-        return { subtitle: 'Platinum Specialist', title: 'Dossier' };
+        return { subtitle: t('driver:profile'), title: t('driver:profile') };
       case 'dashboard':
       default:
         return { subtitle: 'Welcome back,', title: 'Michael' };

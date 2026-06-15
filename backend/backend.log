@@ -1,0 +1,58 @@
+Fast Pastry Backend running on port 3000
+[0mGET /api/catalog/featured [32m200[0m 83.986 ms - 918[0m
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db connected (6d-rGu7RFjkrwFCzAAAB)
+[0mGET /api/client/profile [32m200[0m 30.840 ms - 477[0m
+[0mGET /api/client/events [36m304[0m 8.676 ms - -[0m
+[0mGET /api/client/saved-recipes [36m304[0m 52.920 ms - -[0m
+[0mPOST /api/auth/logout [32m200[0m 2.459 ms - 52[0m
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db disconnected (6d-rGu7RFjkrwFCzAAAB)
+[0mPOST /api/auth/login [32m200[0m 352.658 ms - 813[0m
+[0mGET /api/client/profile [33m403[0m 50.089 ms - 65[0m
+[0mGET /api/config/onboarding [33m404[0m 6.649 ms - 45[0m
+[0mPOST /api/auth/login [32m200[0m 939.661 ms - 855[0m
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db connected (e7yzYXus3fTESkOWAAAH)
+[0mGET /api/catalog/promotions [32m200[0m 105.020 ms - 897[0m
+[0mGET /api/catalog/featured [32m200[0m 57.970 ms - 918[0m
+[0mGET /api/catalog/categories [36m304[0m 5.505 ms - -[0m
+[0mGET /api/catalog/featured [32m200[0m 122.562 ms - 918[0m
+[0mGET /api/catalog/featured [32m200[0m 100.243 ms - 918[0m
+[0mGET /api/client/events [36m304[0m 122.475 ms - -[0m
+[0mGET /api/client/cart [36m304[0m 25.760 ms - -[0m
+[0mPATCH /api/client/fcm-token [33m404[0m 4.751 ms - 45[0m
+[0mPOST /api/catalog/compute-price [32m200[0m 5.669 ms - 36[0m
+[0mGET /api/catalog/config [33m404[0m 13.118 ms - 44[0m
+[0mGET /api/client/cart [36m304[0m 4.665 ms - -[0m
+[0mGET /api/client/profile [36m304[0m 23.006 ms - -[0m
+[0mGET /api/client/saved-recipes [36m304[0m 4.232 ms - -[0m
+[0mGET /api/client/events [36m304[0m 4.714 ms - -[0m
+[0mPOST /api/client/fcm-token [32m200[0m 23.754 ms - 44[0m
+[0mGET /api/catalog/categories [36m304[0m 0.636 ms - -[0m
+[0mGET /api/catalog?page=1&limit=20 [32m200[0m 19.790 ms - 2303[0m
+[0mGET /api/client/saved-recipes [36m304[0m 2.808 ms - -[0m
+[0mGET /api/client/profile [32m200[0m 13.826 ms - 477[0m
+[0mGET /api/client/events [36m304[0m 4.660 ms - -[0m
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db disconnected (e7yzYXus3fTESkOWAAAH)
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db connected (HkYWiKTi9DhI9MwfAAAJ)
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db disconnected (HkYWiKTi9DhI9MwfAAAJ)
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db connected (OSt9mLYzgyNJzqS3AAAL)
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db disconnected (OSt9mLYzgyNJzqS3AAAL)
+[0mGET /api/client/profile [36m304[0m 228.890 ms - -[0m
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db connected (y5M-76NIsvi-DMtmAAAN)
+[0mPATCH /api/client/fcm-token [33m404[0m 5.924 ms - 45[0m
+[0mGET /api/config/onboarding [33m404[0m 0.920 ms - 45[0m
+[0mGET /api/catalog/promotions [36m304[0m 15.085 ms - -[0m
+[0mGET /api/client/events [36m304[0m 7.694 ms - -[0m
+[0mGET /api/catalog/featured [36m304[0m 72.673 ms - -[0m
+[0mGET /api/catalog/featured [36m304[0m 5.730 ms - -[0m
+[0mGET /api/catalog/featured [36m304[0m 7.937 ms - -[0m
+[0mGET /api/catalog/categories [36m304[0m 0.901 ms - -[0m
+[0mGET /api/client/cart [36m304[0m 8.967 ms - -[0m
+[0mGET /api/catalog/config [33m404[0m 6.437 ms - 44[0m
+[0mPOST /api/catalog/compute-price [32m200[0m 3.449 ms - 36[0m
+[0mGET /api/client/cart [36m304[0m 4.779 ms - -[0m
+[0mGET /api/client/events [36m304[0m 7.779 ms - -[0m
+[0mGET /api/client/profile [36m304[0m 9.528 ms - -[0m
+[0mGET /api/client/saved-recipes [36m304[0m 4.174 ms - -[0m
+[0mGET /api/client/events [36m304[0m 21.828 ms - -[0m
+[0mPOST /api/client/fcm-token [32m200[0m 18.828 ms - 44[0m
+[Socket] CLIENT:fc5ecaa1-e1cc-4272-8226-81b8e7f2f7db disconnected (y5M-76NIsvi-DMtmAAAN)

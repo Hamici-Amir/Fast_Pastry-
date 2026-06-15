@@ -1,0 +1,22 @@
+{
+  "title": "سلة التسوق",
+  "empty": "سلة التسوق فارغة",
+  "empty_message": "أضف بعض المعجنات اللذيذة للبدء",
+  "total": "الإجمالي",
+  "subtotal": "المجموع الفرعي",
+  "delivery_fee": "رسوم التوصيل",
+  "tax": "الضريبة",
+  "checkout": "متابعة الدفع",
+  "quantity": "الكمية",
+  "remove": "إزالة",
+  "clear_cart": "تفريغ السلة",
+  "item_added": "تمت الإضافة إلى السلة",
+  "item_removed": "تمت الإزالة من السلة",
+  "cart_cleared": "تم تفريغ السلة",
+  "continue_shopping": "مواصلة التسوق",
+  "order_summary": "ملخص الطلب",
+  "apply_coupon": "تطبيق القسيمة",
+  "coupon_placeholder": "أدخل رمز القسيمة",
+  "invalid_coupon": "رمز قسيمة غير صالح",
+  "savings": "التوفير"
+}

@@ -10,6 +10,7 @@ import {
   Alert,
   ActivityIndicator
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -89,6 +90,7 @@ function AmbientSparkle({ index }: { index: number }) {
 
 // Simulated Interactive Logistics Map with Live Animated Courier Capsule
 const InteractiveLogisticsMap = () => {
+  const { t } = useTranslation();
   // Shared progress value of courier van from 0 (Boutique) to 1 (Home)
   const courierProgress = useSharedValue(0);
 
@@ -181,7 +183,7 @@ const InteractiveLogisticsMap = () => {
           <Text style={{ fontSize: 10 }}>⚜️</Text>
         </View>
         <View style={styles.markerLabelFrame}>
-          <Text style={styles.markerLabelTitle}>Rue Royale Boutique</Text>
+          <Text style={styles.markerLabelTitle}>{t('orders:title')}</Text>
         </View>
       </View>
 
@@ -191,7 +193,7 @@ const InteractiveLogisticsMap = () => {
           <MapPin size={10} color="#FFFFFF" />
         </View>
         <View style={styles.markerLabelFrame}>
-          <Text style={styles.markerLabelTitle}>Cooper Residence</Text>
+          <Text style={styles.markerLabelTitle}>{t('orders:delivery_address')}</Text>
         </View>
       </View>
 
@@ -207,13 +209,14 @@ const InteractiveLogisticsMap = () => {
       <GlassBox intensity={95} style={styles.mapInfoBadge}>
         <View style={styles.mapInfoPulse} />
         <Thermometer size={10} color="#D4A373" style={{ marginRight: 4 }} />
-        <Text style={styles.mapInfoText}>CLOCHE SENSOR: 3.6°C OPTIMAL CHILL</Text>
+        <Text style={styles.mapInfoText}>{t('orders:status_delivering')}</Text>
       </GlassBox>
     </View>
   );
 };
 
 export default function DeliveryTrackingScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
@@ -235,9 +238,9 @@ export default function DeliveryTrackingScreen() {
 
   const handleCallDriver = () => {
     Alert.alert(
-      "Gourmet Connection",
-      `Dialing Jean-Pierre's secured boutique line (+33 6 55 92 11)...`,
-      [{ text: "Close Connection" }]
+      t('orders:title'),
+      t('orders:track_order'),
+      [{ text: t('common:close') }]
     );
   };
 
@@ -254,8 +257,8 @@ export default function DeliveryTrackingScreen() {
       {/* Premium Safe Header overlay */}
       {/* Universal Modern Header */}
       <AppHeader 
-        title="Delivery Logistics"
-        subtitle="White-Glove Courier Track"
+        title={t('orders:title')}
+        subtitle={t('orders:track_order')}
         showBack
         onBackPress={() => router.back()}
       />
@@ -275,24 +278,24 @@ export default function DeliveryTrackingScreen() {
                 <Clock size={22} color="#D4A373" />
               </View>
               <View style={{ flex: 1, marginLeft: 14 }}>
-                <Text style={styles.estimateTitle}>Estimated Arrival Time</Text>
+                <Text style={styles.estimateTitle}>{t('orders:estimated_delivery')}</Text>
                 <Text style={styles.estimateTimeValue}>
-                  {deliveryData.estimatedTime} <Text style={styles.estimateRemainingText}>({deliveryData.minsRemaining} Mins)</Text>
+                  {deliveryData.estimatedTime} <Text style={styles.estimateRemainingText}>({deliveryData.minsRemaining} {t('common:loading')})</Text>
                 </Text>
               </View>
               <View style={styles.statusOnScheduleBadge}>
-                <Text style={styles.statusOnScheduleText}>On Schedule</Text>
+                <Text style={styles.statusOnScheduleText}>{t('orders:status_delivering')}</Text>
               </View>
             </View>
             <View style={styles.estimateSeparator} />
             <Text style={styles.estimateDescText}>
-              Chef Jean-Luc's delivery vehicle has departed the Rue Royale boutique. Your pastries are safely sealed in a sanitized, chilled cloche container.
+              {t('orders:estimated_delivery')}
             </Text>
           </GlassBox>
         </View>
 
         {/* SECTION 2: COURIER PROFILE CARD */}
-        <Text style={styles.sectionTitle}>Boutique Courier Ambassador</Text>
+        <Text style={styles.sectionTitle}>{t('orders:title')}</Text>
         <GlassBox intensity={80} style={styles.courierProfileCard}>
           <View style={styles.courierRow}>
             {/* Courier Avatar Silhouette */}
@@ -307,10 +310,10 @@ export default function DeliveryTrackingScreen() {
             
             <View style={{ flex: 1, marginLeft: 14 }}>
               <Text style={styles.courierName}>{deliveryData.courierName}</Text>
-              <Text style={styles.courierStatusLabel}>Senior Pastry Courier • Certified Cloche</Text>
+              <Text style={styles.courierStatusLabel}>{t('orders:status_delivering')}</Text>
               <View style={styles.ratingRow}>
                 <Text style={styles.ratingStars}>⭐️⭐️⭐️⭐️⭐️</Text>
-                <Text style={styles.ratingValText}>{deliveryData.courierRating} (Verified Ambassador)</Text>
+                <Text style={styles.ratingValText}>{deliveryData.courierRating} ({t('orders:status_delivered')})</Text>
               </View>
             </View>
           </View>
@@ -322,7 +325,7 @@ export default function DeliveryTrackingScreen() {
               onPress={handleCallDriver}
             >
               <Phone size={15} color="#2C1B18" style={{ marginRight: 8 }} />
-              <Text style={styles.commButtonTextSecondary}>Call Ambassador</Text>
+              <Text style={styles.commButtonTextSecondary}>{t('orders:track_order')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -336,14 +339,14 @@ export default function DeliveryTrackingScreen() {
                 style={styles.commButtonGradient}
               >
                 <MessageSquare size={15} color="#FFFFFF" style={{ marginRight: 8 }} />
-                <Text style={styles.commButtonTextPrimary}>Boutique Chat</Text>
+                <Text style={styles.commButtonTextPrimary}>{t('orders:title')}</Text>
               </LinearGradient>
             </TouchableOpacity>
           </View>
         </GlassBox>
 
         {/* SECTION 3: DELIVERY STATUS TIMELINE */}
-        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>Boutique Logistical Milestones</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 22 }]}>{t('orders:active')}</Text>
         <GlassBox intensity={50} style={styles.timelineCard}>
           
           {/* Milestone 1 (Completed) */}
@@ -353,8 +356,8 @@ export default function DeliveryTrackingScreen() {
               <Check size={9} color="#FFFFFF" strokeWidth={3} />
             </View>
             <View style={styles.timelineDetails}>
-              <Text style={styles.timelineLabelTitleCheck}>1:00 PM • Order Sealed & Authenticated</Text>
-              <Text style={styles.timelineLabelDesc}>Ingredients certified and master recipe logged.</Text>
+              <Text style={styles.timelineLabelTitleCheck}>{t('orders:status_confirmed')}</Text>
+              <Text style={styles.timelineLabelDesc}>{t('orders:status_confirmed')}</Text>
             </View>
           </View>
 
@@ -365,8 +368,8 @@ export default function DeliveryTrackingScreen() {
               <Check size={9} color="#FFFFFF" strokeWidth={3} />
             </View>
             <View style={styles.timelineDetails}>
-              <Text style={styles.timelineLabelTitleCheck}>2:30 AM • Parisian Kitchen Baking Finished</Text>
-              <Text style={styles.timelineLabelDesc}>Tiers layered, frosting piped, and gold decorations applied.</Text>
+              <Text style={styles.timelineLabelTitleCheck}>{t('orders:status_preparing')}</Text>
+              <Text style={styles.timelineLabelDesc}>{t('orders:status_preparing')}</Text>
             </View>
           </View>
 
@@ -378,8 +381,8 @@ export default function DeliveryTrackingScreen() {
               <View style={styles.timelineIndicatorActiveInner} />
             </View>
             <View style={styles.timelineDetails}>
-              <Text style={styles.timelineLabelTitleActive}>1:45 PM • Chilled Cloche Capsule Departed</Text>
-              <Text style={styles.timelineLabelDescActive}>Ambassador departed Rue Royale Boutique inside refrigerated vehicle.</Text>
+              <Text style={styles.timelineLabelTitleActive}>{t('orders:status_delivering')}</Text>
+              <Text style={styles.timelineLabelDescActive}>{t('orders:status_delivering')}</Text>
             </View>
           </View>
 
@@ -389,8 +392,8 @@ export default function DeliveryTrackingScreen() {
               <View style={styles.timelinePendingDotInner} />
             </View>
             <View style={styles.timelineDetails}>
-              <Text style={styles.timelineLabelTitlePending}>2:02 PM • Arrival & Unboxing Handover</Text>
-              <Text style={styles.timelineLabelDesc}>Expected handover at Cooper Residence including unboxing quality check.</Text>
+              <Text style={styles.timelineLabelTitlePending}>{t('orders:status_delivered')}</Text>
+              <Text style={styles.timelineLabelDesc}>{t('orders:status_delivered')}</Text>
             </View>
           </View>
 
@@ -406,8 +409,8 @@ export default function DeliveryTrackingScreen() {
             <GlassBox intensity={70} style={styles.summaryHeaderGlass}>
               <View style={styles.summaryHeaderRow}>
                 <View style={styles.summaryHeaderTitleBlock}>
-                  <Text style={styles.summaryHeaderTitle}>Order Summary Details</Text>
-                  <Text style={styles.summaryHeaderSubtitle}>Code: {deliveryData.orderId}</Text>
+                  <Text style={styles.summaryHeaderTitle}>{t('orders:title')}</Text>
+                  <Text style={styles.summaryHeaderSubtitle}>{t('orders:order_id')}: {deliveryData.orderId}</Text>
                 </View>
                 {summaryExpanded ? (
                   <ChevronUp size={18} color="#8C7A77" />
@@ -422,7 +425,7 @@ export default function DeliveryTrackingScreen() {
             <GlassBox intensity={80} style={styles.summaryExpandedGlass}>
               {/* Destination Address */}
               <View style={styles.expandedInfoBlock}>
-                <Text style={styles.expandedBlockTitle}>Delivery Destination Address</Text>
+                <Text style={styles.expandedBlockTitle}>{t('orders:delivery_address')}</Text>
                 <View style={styles.destinationRow}>
                   <MapPin size={14} color="#D4A373" style={{ marginRight: 8, marginTop: 1 }} />
                   <Text style={styles.destinationText}>{deliveryData.destination}</Text>
@@ -432,7 +435,7 @@ export default function DeliveryTrackingScreen() {
               <View style={styles.expandedDivider} />
 
               {/* Items List */}
-              <Text style={styles.expandedBlockTitle}>Bespoke Pastry Basket</Text>
+              <Text style={styles.expandedBlockTitle}>{t('orders:items')}</Text>
               <View style={styles.expandedItemsList}>
                 {deliveryData.itemsList.map(item => (
                   <View key={item.id} style={styles.expandedItemRow}>
@@ -452,13 +455,13 @@ export default function DeliveryTrackingScreen() {
               {/* Secure Transport info */}
               <View style={styles.secureBadgeRow}>
                 <ShieldCheck size={14} color="#D4A373" style={{ marginRight: 8 }} />
-                <Text style={styles.secureBadgeText}>Temperature controlled & sealed. Settle on unboxing.</Text>
+                <Text style={styles.secureBadgeText}>{t('orders:status_delivered')}</Text>
               </View>
 
               {/* French Haute Pâtisserie Authenticity Seal */}
               <View style={styles.authenticitySealRow}>
                 <View style={styles.sealTinyLine} />
-                <Text style={styles.sealText}>⚜️ HAUTE PÂTISSERIE PARIS ⚜️</Text>
+                <Text style={styles.sealText}>{t('orders:status_delivered')}</Text>
                 <View style={styles.sealTinyLine} />
               </View>
             </GlassBox>

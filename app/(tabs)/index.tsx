@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StatusBar, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle, 
@@ -18,6 +19,7 @@ import { RecommendationGrid } from '../../src/components/home/RecommendationGrid
 import { theme } from '../../src/theme';
 
 export default function HomeScreen() {
+  const { t } = useTranslation();
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({
@@ -82,7 +84,7 @@ export default function HomeScreen() {
         </Animated.View>
 
         <Animated.View entering={FadeInDown.duration(600).delay(400)}>
-          <ProductCarousel title="Trending Now" />
+          <ProductCarousel title={t('home:trending_now')} />
         </Animated.View>
 
         <Animated.View entering={FadeInDown.duration(600).delay(500)}>
@@ -90,7 +92,7 @@ export default function HomeScreen() {
         </Animated.View>
 
         <Animated.View entering={FadeInDown.duration(600).delay(600)}>
-          <ProductCarousel title="Seasonal Specials" />
+          <ProductCarousel title={t('home:recommended')} />
         </Animated.View>
 
         <Animated.View entering={FadeInDown.duration(600).delay(700)}>

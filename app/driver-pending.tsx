@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from
 import Animated, { FadeInDown, FadeInUp, withRepeat, withTiming, useSharedValue, useAnimatedStyle, Easing, withSequence, withDelay } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { GlassBox } from '../src/components/ui/GlassBox';
 import { useRouter } from 'expo-router';
 import { 
@@ -30,6 +31,7 @@ const DOCUMENTS = [
 ];
 
 export default function DriverPendingScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
@@ -80,8 +82,8 @@ export default function DriverPendingScreen() {
       <View pointerEvents="none" style={[styles.ambientGlow, { top: -50, left: width / 2 - 200, backgroundColor: 'rgba(212, 163, 115, 0.15)' }]} />
 
       <AppHeader 
-        title="Fleet Onboarding" 
-        subtitle="Verification Phase" 
+        title={t('driver:dashboard')} 
+        subtitle={t('driver:notifications')} 
         showBell 
       />
 
@@ -100,15 +102,15 @@ export default function DriverPendingScreen() {
             </Animated.View>
           </View>
           
-          <Text style={styles.heroTitle}>Application Submitted</Text>
+          <Text style={styles.heroTitle}>{t('orders:status_pending')}</Text>
           <Text style={styles.heroSubtitle}>
-            Welcome to the elite fleet. Our review team is currently verifying your exclusive profile.
+            {t('driver:no_deliveries')}
           </Text>
         </Animated.View>
 
         {/* PROGRESS TRACKER */}
         <Animated.View entering={FadeInDown.duration(800).delay(200)} style={styles.trackerSection}>
-          <Text style={styles.sectionHeader}>VERIFICATION STATUS</Text>
+          <Text style={styles.sectionHeader}>{t('orders:status_pending').toUpperCase()}</Text>
           <GlassBox intensity={20} tint="dark" style={styles.trackerCard}>
             
             <View style={styles.trackStep}>
@@ -117,8 +119,8 @@ export default function DriverPendingScreen() {
               </View>
               <View style={styles.trackLineDone} />
               <View style={styles.trackContent}>
-                <Text style={styles.trackTitleDone}>Application Received</Text>
-                <Text style={styles.trackDesc}>All forms successfully submitted.</Text>
+                <Text style={styles.trackTitleDone}>{t('orders:status_confirmed')}</Text>
+                <Text style={styles.trackDesc}>{t('orders:order_cancelled')}</Text>
               </View>
             </View>
 
@@ -128,8 +130,8 @@ export default function DriverPendingScreen() {
               </View>
               <View style={styles.trackLinePending} />
               <View style={styles.trackContent}>
-                <Text style={styles.trackTitleActive}>Document Review</Text>
-                <Text style={styles.trackDescActive}>Verifying your logistics credentials.</Text>
+                <Text style={styles.trackTitleActive}>{t('orders:status_preparing')}</Text>
+                <Text style={styles.trackDescActive}>{t('orders:status_preparing')}</Text>
               </View>
             </View>
 
@@ -138,8 +140,8 @@ export default function DriverPendingScreen() {
                 <Shield size={16} color="#8E99A8" />
               </View>
               <View style={styles.trackContent}>
-                <Text style={styles.trackTitlePending}>Final Approval</Text>
-                <Text style={styles.trackDesc}>HQ activating your driver profile.</Text>
+                <Text style={styles.trackTitlePending}>{t('orders:status_ready')}</Text>
+                <Text style={styles.trackDesc}>{t('orders:status_ready')}</Text>
               </View>
             </View>
 
@@ -149,10 +151,10 @@ export default function DriverPendingScreen() {
         {/* DOCUMENTS SECTION */}
         <Animated.View entering={FadeInDown.duration(800).delay(400)} style={styles.docsSection}>
           <View style={styles.docsHeaderRow}>
-            <Text style={styles.sectionHeader}>UPLOADED DOCUMENTS</Text>
+            <Text style={styles.sectionHeader}>{t('common:no_results').toUpperCase()}</Text>
             <TouchableOpacity style={styles.editBtn}>
               <Edit3 size={12} color="#D4A373" />
-              <Text style={styles.editBtnText}>Edit</Text>
+              <Text style={styles.editBtnText}>{t('common:edit')}</Text>
             </TouchableOpacity>
           </View>
 
@@ -173,7 +175,7 @@ export default function DriverPendingScreen() {
                 </View>
                 <Text style={styles.docTitle}>{doc.title}</Text>
                 <Text style={[styles.docStatus, { color: doc.color }]}>
-                  {doc.status === 'verified' ? 'Verified' : 'In Review'}
+                  {doc.status === 'verified' ? t('orders:status_delivered') : t('orders:status_pending')}
                 </Text>
               </GlassBox>
             ))}
@@ -185,7 +187,7 @@ export default function DriverPendingScreen() {
           <LinearGradient colors={['rgba(212, 163, 115, 0.1)', 'transparent']} style={styles.estimateCard}>
             <View style={styles.estimateIconRow}>
               <Clock size={20} color="#D4A373" />
-              <Text style={styles.estimateTitle}>Estimated Approval Time</Text>
+              <Text style={styles.estimateTitle}>{t('orders:estimated_delivery', { time: '' })}</Text>
             </View>
             <Text style={styles.estimateValue}>24 - 48 Hours</Text>
             <Text style={styles.estimateDesc}>
@@ -199,13 +201,13 @@ export default function DriverPendingScreen() {
           <TouchableOpacity style={styles.supportBtn} activeOpacity={0.8}>
             <LinearGradient colors={['#D4A373', '#B8860B']} style={styles.supportGradient}>
               <HeadphonesIcon size={20} color="#1C1C1E" style={{ marginRight: 8 }} />
-              <Text style={styles.supportBtnText}>CONTACT FLEET SUPPORT</Text>
+              <Text style={styles.supportBtnText}>{t('common:save').toUpperCase()}</Text>
             </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.logoutBtn} onPress={() => router.replace('/')}>
             <LogOut size={18} color="#EF4444" style={{ marginRight: 8 }} />
-            <Text style={styles.logoutBtnText}>Sign Out Safely</Text>
+            <Text style={styles.logoutBtnText}>{t('common:cancel')}</Text>
           </TouchableOpacity>
         </Animated.View>
 

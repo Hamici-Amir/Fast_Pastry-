@@ -14,12 +14,12 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import { 
   ArrowLeft, 
   Paperclip, 
   Camera, 
-  Send, 
   Award,
   MoreVertical,
   CheckCheck,
@@ -70,6 +70,7 @@ const INITIAL_MESSAGES: Message[] = [
 ];
 
 export default function ChatScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
@@ -184,8 +185,8 @@ export default function ChatScreen() {
 
       {/* Universal Modern Header */}
       <AppHeader 
-        title="Boutique Concierge"
-        subtitle="Order FP-892110 • Active"
+        title={t('common:chat_title')}
+        subtitle={t('orders:status_active', { id: 'FP-892110' }) || `Order FP-892110 • ${t('orders:status_confirmed')}`}
         showBack
         onBackPress={() => router.back()}
         rightContent={
@@ -198,7 +199,7 @@ export default function ChatScreen() {
       {/* Floating Context Badge */}
       <View style={styles.contextBadge}>
         <Package size={12} color="#D4A373" />
-        <Text style={styles.contextBadgeText}>Ambassador Jean-Pierre is handling your delivery.</Text>
+                  <Text style={styles.contextBadgeText}>{t('orders:status_delivering')}</Text>
       </View>
 
       {/* Message List */}
@@ -209,7 +210,7 @@ export default function ChatScreen() {
         showsVerticalScrollIndicator={false}
         onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
       >
-        <Text style={styles.dateSeparator}>Today, 1:40 PM</Text>
+        <Text style={styles.dateSeparator}>{t('common:loading')}</Text>
         {messages.map(renderMessage)}
       </ScrollView>
 
@@ -227,7 +228,7 @@ export default function ChatScreen() {
 
           <TextInput
             style={styles.textInput}
-            placeholder="Message the boutique..."
+            placeholder={t('common:chat_placeholder')}
             placeholderTextColor="#C5B6B3"
             value={inputText}
             onChangeText={setInputText}
@@ -242,7 +243,7 @@ export default function ChatScreen() {
                   colors={['#C59567', '#D4A373']}
                   style={styles.sendGradient}
                 >
-                  <Send size={16} color="#FFFFFF" style={{ marginLeft: -2 }} />
+                  <Text style={{ color: '#FFFFFF', fontSize: 10, fontFamily: 'Poppins-Bold' }}>{t('common:chat_send')}</Text>
                 </LinearGradient>
               </TouchableOpacity>
             </Animated.View>

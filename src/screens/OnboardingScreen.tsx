@@ -8,6 +8,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { OnboardingPage } from '../components/onboarding/OnboardingPage';
 import { theme } from '../theme';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
@@ -30,6 +31,7 @@ const ONBOARDING_DATA = [
 ];
 
 export const OnboardingScreen = ({ onFinish }: { onFinish: () => void }) => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollX = useSharedValue(0);
 

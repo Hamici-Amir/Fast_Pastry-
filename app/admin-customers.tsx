@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -70,17 +71,18 @@ const CUSTOMERS: any[] = [
   },
 ];
 
-const ANALYTICS = [
-  { label: 'Total Customers', value: '4,842', icon: Users, color: '#38BDF8' },
-  { label: 'Avg. LTV', value: '$248.50', icon: DollarSign, color: '#D4A373' },
-  { label: 'Retention Rate', value: '78.2%', icon: TrendingUp, color: '#4ADE80' },
-];
-
 const STATUS_FILTERS = ['All', 'VIP', 'Regular', 'New'];
 
 export default function AdminCustomersScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const ANALYTICS = [
+    { label: t('admin:manage_customers'), value: '4,842', icon: Users, color: '#38BDF8' },
+    { label: t('admin:total_revenue'), value: '$248.50', icon: DollarSign, color: '#D4A373' },
+    { label: t('admin:dashboard'), value: '78.2%', icon: TrendingUp, color: '#4ADE80' },
+  ];
+
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -98,7 +100,7 @@ export default function AdminCustomersScreen() {
         stickyHeaderIndices={[0]}
       >
         <AppHeader 
-          title="Customer Registry" 
+          title={t('admin:manage_customers')} 
           subtitle="CRM Portal" 
           showBell 
           hasNotifications
@@ -112,7 +114,7 @@ export default function AdminCustomersScreen() {
                    <Sparkles size={14} color="#D4A373" />
                    <Text className="ml-2 font-cairo-medium text-gold/80 text-[10px] tracking-widest uppercase">Customer Relationship</Text>
                 </View>
-                <Text className="font-poppins-bold text-3xl text-adminText">Customers</Text>
+                <Text className="font-poppins-bold text-3xl text-adminText">{t('admin:manage_customers')}</Text>
              </View>
              <TouchableOpacity className="w-12 h-12 rounded-2xl bg-gold items-center justify-center shadow-xl shadow-[#D4A373]/20">
                 <UserPlus size={20} color="#FFFFFF" />
@@ -143,7 +145,7 @@ export default function AdminCustomersScreen() {
             <View className="flex-row items-center h-12 bg-surface rounded-2xl px-4 border border-[#D4A373]/10 mb-4 shadow-sm">
               <Search size={18} color="#8C7A77" />
               <TextInput 
-                placeholder="Find customer by name or email..." 
+                placeholder={t('common:search')} 
                 placeholderTextColor="#A18E8B"
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -203,8 +205,8 @@ export default function AdminCustomersScreen() {
                  <View className="w-20 h-20 rounded-full bg-[#D4A373]/5 items-center justify-center mb-6 border border-[#D4A373]/10">
                     <SearchX size={40} color="#8C7A77" />
                  </View>
-                 <Text className="font-poppins-bold text-adminText text-lg">No matches in registry</Text>
-                 <Text className="font-cairo-medium text-adminMuted text-sm text-center px-10">We couldn't find any customers matching your search criteria.</Text>
+                 <Text className="font-poppins-bold text-adminText text-lg">{t('admin:no_data')}</Text>
+                 <Text className="font-cairo-medium text-adminMuted text-sm text-center px-10">{t('admin:no_data')}</Text>
               </View>
             )}
           </View>

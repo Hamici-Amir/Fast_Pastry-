@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet, Switch } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,6 +26,7 @@ import { AppHeader } from '../src/components/common/AppHeader';
 const { width } = Dimensions.get('window');
 
 export default function AdminCakeEditorScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { id } = useLocalSearchParams();
@@ -74,7 +76,7 @@ export default function AdminCakeEditorScreen() {
       >
         {/* Universal Modern Header */}
         <AppHeader 
-          title={isEditing ? 'Edit Cake' : 'New Cake'}
+          title={isEditing ? t('admin:edit_product') : t('admin:add_product')}
           subtitle="Inventory Editor"
           showBack
           onBackPress={() => router.back()}
@@ -98,7 +100,7 @@ export default function AdminCakeEditorScreen() {
                 <View className="w-14 h-14 rounded-full bg-rose-100 items-center justify-center border border-rose-200/50 mb-3 shadow-inner">
                   <Upload size={24} color="#D4A373" />
                 </View>
-                <Text className="font-poppins-bold text-adminText text-sm">Upload Cover Image</Text>
+                <Text className="font-poppins-bold text-adminText text-sm">{t('admin:product_image')}</Text>
                 <Text className="font-cairo-medium text-adminMuted text-[10px]">PNG, JPG up to 10MB</Text>
               </View>
             </TouchableOpacity>
@@ -110,7 +112,7 @@ export default function AdminCakeEditorScreen() {
              <View className="bg-white/70 rounded-[32px] border border-rose-200/30 p-6 gap-6 shadow-sm overflow-hidden">
                 <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFillObject} />
                 <View>
-                   <Text className="font-cairo-bold text-[10px] text-adminMuted mb-2">CAKE TITLE</Text>
+                    <Text className="font-cairo-bold text-[10px] text-adminMuted mb-2">{t('admin:product_name')}</Text>
                    <TextInput 
                       value={form.title}
                       onChangeText={(t) => setForm({...form, title: t})}
@@ -152,7 +154,7 @@ export default function AdminCakeEditorScreen() {
              <View className="bg-white/70 rounded-[32px] border border-rose-200/30 p-6 flex-row gap-4 shadow-sm overflow-hidden">
                 <BlurView intensity={40} tint="light" style={StyleSheet.absoluteFillObject} />
                 <View className="flex-1">
-                   <Text className="font-cairo-bold text-[10px] text-adminMuted mb-2">PRICE ($)</Text>
+                    <Text className="font-cairo-bold text-[10px] text-adminMuted mb-2">{t('admin:product_price')}</Text>
                    <View className="flex-row items-center bg-white/60 rounded-2xl border border-rose-200/50 px-5 h-14 shadow-sm">
                       <DollarSign size={14} color="#D4A373" />
                       <TextInput 
@@ -165,7 +167,7 @@ export default function AdminCakeEditorScreen() {
                 </View>
 
                 <View className="flex-1">
-                   <Text className="font-cairo-bold text-[10px] text-adminMuted mb-2">STOCK LEVEL</Text>
+                    <Text className="font-cairo-bold text-[10px] text-adminMuted mb-2">{t('admin:product_stock')}</Text>
                    <View className="flex-row items-center bg-white/60 rounded-2xl border border-rose-200/50 px-5 h-14 shadow-sm">
                       <Package size={14} color="#D4A373" />
                       <TextInput 
@@ -268,7 +270,7 @@ export default function AdminCakeEditorScreen() {
                onPress={() => router.back()}
                className="flex-1 h-14 rounded-2xl bg-white/80 border border-rose-200/50 items-center justify-center shadow-sm"
             >
-               <Text className="font-poppins-bold text-adminText text-base">Discard</Text>
+               <Text className="font-poppins-bold text-adminText text-base">{t('common:cancel')}</Text>
             </TouchableOpacity>
             <TouchableOpacity 
                onPress={() => router.back()}
@@ -276,7 +278,7 @@ export default function AdminCakeEditorScreen() {
             >
                <View className="flex-row items-center">
                   <Save size={20} color="#FFFFFF" />
-                  <Text className="ml-2 font-poppins-bold text-white text-base">{isEditing ? 'Save Changes' : 'Create Product'}</Text>
+                  <Text className="ml-2 font-poppins-bold text-white text-base">{isEditing ? t('common:save') : t('admin:add_product')}</Text>
                </View>
             </TouchableOpacity>
          </View>

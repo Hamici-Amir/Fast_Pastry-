@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Switch, Dimensions, Pressable } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useRouter, usePathname } from 'expo-router';
 import { 
   LayoutDashboard, 
@@ -39,50 +40,50 @@ import Animated, {
 
 const { width } = Dimensions.get('window');
 
-const MENU_SECTIONS = [
+const getMenuSections = (t: any) => [
   {
     title: 'OPERATIONS',
     items: [
-      { icon: LayoutDashboard, label: 'Dashboard', screen: 'admin', path: '/admin' },
-      { icon: ShoppingCart, label: 'Orders', screen: 'admin-orders', path: '/admin-orders' },
-      { icon: Cake, label: 'Cakes', screen: 'admin-cakes', path: '/admin-cakes' },
-      { icon: Layers, label: 'Categories', screen: 'admin', path: '/admin' },
+      { icon: LayoutDashboard, label: t('admin:dashboard'), screen: 'admin', path: '/admin' },
+      { icon: ShoppingCart, label: t('admin:manage_orders'), screen: 'admin-orders', path: '/admin-orders' },
+      { icon: Cake, label: t('admin:manage_products'), screen: 'admin-cakes', path: '/admin-cakes' },
+      { icon: Layers, label: t('admin:manage_products'), screen: 'admin', path: '/admin' },
     ]
   },
   {
     title: 'PARTNERS',
     items: [
-      { icon: Users, label: 'Customers', screen: 'admin-customers', path: '/admin-customers' },
-      { icon: Truck, label: 'Drivers', screen: 'admin-drivers', path: '/admin-drivers' },
+      { icon: Users, label: t('admin:manage_customers'), screen: 'admin-customers', path: '/admin-customers' },
+      { icon: Truck, label: t('admin:manage_drivers'), screen: 'admin-drivers', path: '/admin-drivers' },
     ]
   },
   {
     title: 'GROWTH',
     items: [
-      { icon: BarChart3, label: 'Analytics', screen: 'admin', path: '/admin' },
-      { icon: DollarSign, label: 'Revenue', screen: 'admin', path: '/admin' },
-      { icon: Tag, label: 'Promotions', screen: 'admin', path: '/admin' },
+      { icon: BarChart3, label: t('admin:dashboard'), screen: 'admin', path: '/admin' },
+      { icon: DollarSign, label: t('admin:revenue'), screen: 'admin', path: '/admin' },
+      { icon: Tag, label: t('admin:dashboard'), screen: 'admin', path: '/admin' },
     ]
   },
   {
     title: 'ENGAGEMENT',
     items: [
-      { icon: Bell, label: 'Notifications', screen: 'admin-notifications', path: '/admin-notifications', badge: '3' },
-      { icon: Heart, label: 'Reviews', screen: 'admin', path: '/admin' },
-      { icon: MessageSquare, label: 'Support', screen: 'admin', path: '/admin' },
+      { icon: Bell, label: t('admin:notifications'), screen: 'admin-notifications', path: '/admin-notifications', badge: '3' },
+      { icon: Heart, label: t('admin:dashboard'), screen: 'admin', path: '/admin' },
+      { icon: MessageSquare, label: t('admin:dashboard'), screen: 'admin', path: '/admin' },
     ]
   },
   {
     title: 'SYSTEM',
     items: [
-      { icon: FileText, label: 'Reports', screen: 'admin', path: '/admin' },
-      { icon: Settings, label: 'Settings', screen: 'admin-settings', path: '/admin-settings' },
+      { icon: FileText, label: t('admin:dashboard'), screen: 'admin', path: '/admin' },
+      { icon: Settings, label: t('admin:settings'), screen: 'admin-settings', path: '/admin-settings' },
     ]
   }
 ];
 
 const AnimatedMenuItem: React.FC<{ 
-    item: typeof MENU_SECTIONS[0]['items'][0], 
+    item: ReturnType<typeof getMenuSections>[0]['items'][0], 
     index: number, 
     isActive: boolean, 
     onPress: (screen: string) => void 
@@ -141,6 +142,7 @@ const AnimatedMenuItem: React.FC<{
 };
 
 export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
+  const { t } = useTranslation();
   const [isSystemActive, setIsSystemActive] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
@@ -177,11 +179,11 @@ export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ nav
                         <View className={`absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-white shadow-sm ${isSystemActive ? 'bg-green-500' : 'bg-red-400'}`} />
                     </View>
                     <View className="ml-6">
-                        <Text className="font-cairo-bold text-[#D4A373] text-[9px] tracking-[4px] uppercase mb-1 opacity-70">Super Admin</Text>
+                        <Text className="font-cairo-bold text-[#D4A373] text-[9px] tracking-[4px] uppercase mb-1 opacity-70">{t('admin:dashboard')}</Text>
                         <Text className="font-poppins-semibold text-xl text-[#2C1B18] tracking-tight">Elena Rostova</Text>
                         <View className="flex-row items-center mt-1">
                             <ShieldCheck size={12} color="#D4A373" strokeWidth={1.5} />
-                            <Text className="ml-1.5 font-cairo-medium text-[9px] text-[#8C7A77] tracking-widest uppercase">HQ PORTAL</Text>
+                            <Text className="ml-1.5 font-cairo-medium text-[9px] text-[#8C7A77] tracking-widest uppercase">{t('admin:dashboard')}</Text>
                         </View>
                     </View>
                 </View>
@@ -191,11 +193,11 @@ export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ nav
 
             <View className="flex-row justify-between items-center px-2 pr-6">
                 <View>
-                    <Text className="font-cairo-medium text-[8px] text-[#8C7A77] uppercase tracking-widest">Revenue Today</Text>
+                    <Text className="font-cairo-medium text-[8px] text-[#8C7A77] uppercase tracking-widest">{t('admin:revenue')}</Text>
                     <Text className="font-poppins-medium text-base text-[#2C1B18]">$12,450</Text>
                 </View>
                 <View className="bg-[#D4A373]/10 px-3 py-1 rounded-xl">
-                    <Text className="font-cairo-bold text-[9px] text-[#D4A373] tracking-widest">842 ORDERS</Text>
+                    <Text className="font-cairo-bold text-[9px] text-[#D4A373] tracking-widest">{t('admin:total_orders')}</Text>
                 </View>
             </View>
         </Animated.View>
@@ -208,8 +210,8 @@ export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ nav
                         <Activity size={16} color={isSystemActive ? '#4ADE80' : '#EF4444'} strokeWidth={1.5} />
                     </View>
                     <View className="ml-4">
-                        <Text className="font-poppins-medium text-xs text-[#2C1B18] uppercase tracking-widest">{isSystemActive ? 'System Active' : 'Maintenance'}</Text>
-                        <Text className="font-cairo-medium text-[9px] text-[#8C7A77] mt-0.5 tracking-wide">{isSystemActive ? 'All services operational' : 'Accepting APIs blocked'}</Text>
+                        <Text className="font-poppins-medium text-xs text-[#2C1B18] uppercase tracking-widest">{isSystemActive ? t('admin:dashboard') : t('admin:settings')}</Text>
+                        <Text className="font-cairo-medium text-[9px] text-[#8C7A77] mt-0.5 tracking-wide">{isSystemActive ? t('admin:dashboard') : t('admin:no_data')}</Text>
                     </View>
                 </View>
                 <Switch 
@@ -223,7 +225,7 @@ export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ nav
 
         {/* SECTIONS MENU items */}
         <View className="flex-1 pb-4">
-            {MENU_SECTIONS.map((section, sIndex) => (
+            {getMenuSections(t).map((section, sIndex) => (
                 <View key={sIndex} className="mb-6">
                     <Text className="font-cairo-bold text-[9px] text-[#8C7A77]/60 tracking-[4px] uppercase ml-6 mb-2">
                         {section.title}
@@ -249,7 +251,7 @@ export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ nav
                 <View className="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 items-center justify-center">
                     <Globe size={14} color="#8C7A77" strokeWidth={1.5} />
                 </View>
-                <Text className="ml-4 font-cairo-bold text-[10px] text-[#8C7A77] uppercase tracking-widest">Global Ops (NY)</Text>
+                <Text className="ml-4 font-cairo-bold text-[10px] text-[#8C7A77] uppercase tracking-widest">{t('admin:settings')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -264,7 +266,7 @@ export const AdminSidebarContent: React.FC<DrawerContentComponentProps> = ({ nav
                     router.replace('/' as any);
                 }}
             >
-                <Text className="font-poppins-bold text-[#D4A373] tracking-[3px] uppercase text-[9px]">End Session</Text>
+                <Text className="font-poppins-bold text-[#D4A373] tracking-[3px] uppercase text-[9px]">{t('profile:logout')}</Text>
             </TouchableOpacity>
         </Animated.View>
       </ScrollView>

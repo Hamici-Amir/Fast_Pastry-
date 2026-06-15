@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Dimensions, TextInput, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeInUp, Layout } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -36,18 +37,25 @@ const ORDERS: any[] = [
   { id: '#FP-1197', customerName: 'Elvis P.', amount: '$75.00', status: 'Cancelled', priority: 'Medium', time: '2h ago', driver: null },
 ];
 
-const ORDER_STATS = [
-  { label: 'Total Orders', value: '1,284', icon: ShoppingCart, color: '#D4A373' },
-  { label: 'In Progress', value: '42', icon: Clock, color: '#60A5FA' },
-  { label: 'Completed', value: '1,120', icon: CheckCircle2, color: '#4ADE80' },
-  { label: 'Issues', value: '3', icon: AlertCircle, color: '#F43F5E' },
-];
-
-const FILTERS = ['All', 'Pending', 'Preparing', 'In Route', 'Delivered'];
-
 export default function AdminOrdersScreen() {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<DrawerNavigationProp<any>>();
+  const ORDER_STATS = [
+    { label: t('admin:total_orders'), value: '1,284', icon: ShoppingCart, color: '#D4A373' },
+    { label: t('orders:status_preparing'), value: '42', icon: Clock, color: '#60A5FA' },
+    { label: t('orders:status_delivered'), value: '1,120', icon: CheckCircle2, color: '#4ADE80' },
+    { label: t('orders:status_cancelled'), value: '3', icon: AlertCircle, color: '#F43F5E' },
+  ];
+
+  const FILTERS = [
+    { key: 'All', label: 'All' },
+    { key: 'Pending', label: t('orders:status_pending') },
+    { key: 'Preparing', label: t('orders:status_preparing') },
+    { key: 'In Route', label: t('orders:status_delivering') },
+    { key: 'Delivered', label: t('orders:status_delivered') },
+  ];
+
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -65,7 +73,7 @@ export default function AdminOrdersScreen() {
         stickyHeaderIndices={[0]}
       >
         <AppHeader 
-          title="Order Management" 
+          title={t('admin:manage_orders')} 
           subtitle="Admin Hub" 
           showBell 
         />
@@ -96,7 +104,7 @@ export default function AdminOrdersScreen() {
             <View className="flex-row items-center h-12 bg-surface rounded-2xl px-4 border border-[#D4A373]/10 mb-4 shadow-sm">
               <Search size={18} color="#8C7A77" />
               <TextInput 
-                placeholder="Search orders or customers..." 
+                placeholder={t('common:search')} 
                 placeholderTextColor="#A18E8B"
                 value={searchQuery}
                 onChangeText={setSearchQuery}
@@ -108,28 +116,28 @@ export default function AdminOrdersScreen() {
             </View>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
-              {FILTERS.map((filter, i) => {
-                 const isActive = activeFilter === filter;
-                 return (
-                  <TouchableOpacity 
-                    key={i}
-                    onPress={() => setActiveFilter(filter)}
-                    activeOpacity={0.8}
-                    className={`px-5 py-2 rounded-xl shadow-sm border ${isActive ? 'bg-gold border-gold' : 'border-[#D4A373]/10 bg-surface'}`}
-                  >
-                    <Text className={`font-poppins-bold text-xs ${isActive ? 'text-white' : 'text-adminMuted'}`}>
-                      {filter}
-                    </Text>
-                  </TouchableOpacity>
-                 );
-              })}
+               {FILTERS.map((filter, i) => {
+                  const isActive = activeFilter === filter.key;
+                  return (
+                   <TouchableOpacity 
+                     key={i}
+                     onPress={() => setActiveFilter(filter.key)}
+                     activeOpacity={0.8}
+                     className={`px-5 py-2 rounded-xl shadow-sm border ${isActive ? 'bg-gold border-gold' : 'border-[#D4A373]/10 bg-surface'}`}
+                   >
+                     <Text className={`font-poppins-bold text-xs ${isActive ? 'text-white' : 'text-adminMuted'}`}>
+                       {filter.label}
+                     </Text>
+                   </TouchableOpacity>
+                  );
+               })}
             </ScrollView>
           </Animated.View>
 
           {/* ORDERS LIST */}
           <View>
             <View className="flex-row justify-between items-center mb-6">
-              <Text className="font-poppins-bold text-xl text-adminText">All Orders</Text>
+              <Text className="font-poppins-bold text-xl text-adminText">{t('admin:manage_orders')}</Text>
               <Text className="font-cairo-bold text-gold text-xs">{filteredOrders.length} RESULTS</Text>
             </View>
 
@@ -152,8 +160,8 @@ export default function AdminOrdersScreen() {
                  <View className="w-16 h-16 rounded-full bg-[#D4A373]/5 items-center justify-center mb-4 border border-[#D4A373]/10">
                     <XCircle size={32} color="#8C7A77" />
                  </View>
-                 <Text className="font-poppins-bold text-adminText text-lg">No orders found</Text>
-                 <Text className="font-cairo-medium text-adminMuted text-sm text-center px-10">Try adjusting your filters or search query to find what you're looking for.</Text>
+                 <Text className="font-poppins-bold text-adminText text-lg">{t('orders:no_orders')}</Text>
+                 <Text className="font-cairo-medium text-adminMuted text-sm text-center px-10">{t('admin:no_data')}</Text>
               </Animated.View>
             )}
           </View>
