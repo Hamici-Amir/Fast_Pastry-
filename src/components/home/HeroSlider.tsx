@@ -75,6 +75,7 @@ export const HeroSlider: React.FC = () => {
 };
 
 const PromotionCard = ({ item, index, scrollX }: { item: any, index: number, scrollX: SharedValue<number> }) => {
+  const { t } = useTranslation();
   const animatedStyle = useAnimatedStyle(() => {
     const inputRange = [
       (index - 1) * width,

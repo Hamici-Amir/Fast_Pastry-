@@ -2,8 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform, I18nManager, Alert } from 'react-native';
-import * as Updates from 'expo-updates';
+import { Platform, I18nManager, Alert, DevSettings } from 'react-native';
 
 import enCommon from './locales/en/common.json';
 import enAuth from './locales/en/auth.json';
@@ -55,7 +54,7 @@ export function applyRTL(lang: string) {
           : lang === 'fr'
             ? 'Veuillez redémarrer l\'application pour appliquer le changement de langue'
             : 'Please restart the app to apply the language change',
-        [{ text: 'OK', onPress: () => Updates.reloadAsync() }]
+        [{ text: 'OK', onPress: () => DevSettings.reload() }]
       );
     }
   }
