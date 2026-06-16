@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import "../global.css";
-import '../src/i18n';
-import React, { useState } from 'react';
+import i18n from '../src/i18n';
+import React, { useState, useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { 
@@ -55,6 +55,13 @@ export default function RootLayout() {
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [authRole, setAuthRole] = useState<AuthRole | null>(null);
+  const [remountKey, setRemountKey] = useState(0);
+
+  useEffect(() => {
+    const handler = (lng: string) => setRemountKey(prev => prev + 1);
+    i18n.on('languageChanged', handler);
+    return () => { i18n.off('languageChanged', handler); };
+  }, []);
 
   if (!fontsLoaded) return null;
 
@@ -99,7 +106,7 @@ export default function RootLayout() {
 
   return (
     <>
-      <Drawer
+      <Drawer key={remountKey}
         initialRouteName={authRole === 'admin' ? 'admin' : (authRole === 'driver' ? 'driver' : '(tabs)')}
         drawerContent={(props) => {
           if (authRole === 'admin') return <AdminSidebarContent {...props} />;
