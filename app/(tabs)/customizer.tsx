@@ -104,15 +104,15 @@ export default function App() {
 
         <Text style={st.title}>{t('catalogue:cus_luxury_toppings')}</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
-          {TOPPINGS.map(t => {
-            const active = toppings.includes(t.k);
+          {TOPPINGS.map(tp => {
+            const active = toppings.includes(tp.k);
             return (
-              <TouchableOpacity key={t.k} onPress={() => setToppings(p => p.includes(t.k) ? p.filter(i => i !== t.k) : [...p, t.k])} style={[st.topCard, active && st.sel]}>
-                <Text style={{ fontSize: 22 }}>{t.e}</Text>
-                <Text style={[st.cl, active && { color: '#000' }]}>{t.l}</Text>
-                <Text style={[st.cm, { height: 24 }]}>{t.d}</Text>
+              <TouchableOpacity key={tp.k} onPress={() => setToppings(p => p.includes(tp.k) ? p.filter(i => i !== tp.k) : [...p, tp.k])} style={[st.topCard, active && st.sel]}>
+                <Text style={{ fontSize: 22 }}>{tp.e}</Text>
+                <Text style={[st.cl, active && { color: '#000' }]}>{tp.l}</Text>
+                <Text style={[st.cm, { height: 24 }]}>{tp.d}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 }}>
-                  <Text style={st.cp}>+DA{t.p}</Text>
+                  <Text style={st.cp}>+DA{tp.p}</Text>
                   <View style={[st.chk, active && st.chkActive]}>
                     {active && <Text style={{ color: '#FFF', fontSize: 9 }}>✓</Text>}
                   </View>
@@ -123,11 +123,11 @@ export default function App() {
         </View>
 
         <Text style={st.title}>{t('catalogue:cus_bespoke_toppers')}</Text>
-        {TOPPERS.map(t => (
-          <TouchableOpacity key={t.k} onPress={() => setTopper(t.k)} style={[st.row, topper === t.k && st.sel]}>
-            <Text style={{ fontSize: 20, marginRight: 12 }}>{t.e}</Text>
-            <Text style={{ flex: 1, fontFamily: 'Poppins-SemiBold', fontSize: 13, color: topper === t.k ? '#000' : '#8C7A77' }}>{t.l}</Text>
-            <Text style={st.cp}>{t.p === 0 ? t('common:included') : `+DA${t.p}`}</Text>
+        {TOPPERS.map(to => (
+          <TouchableOpacity key={to.k} onPress={() => setTopper(to.k)} style={[st.row, topper === to.k && st.sel]}>
+            <Text style={{ fontSize: 20, marginRight: 12 }}>{to.e}</Text>
+            <Text style={{ flex: 1, fontFamily: 'Poppins-SemiBold', fontSize: 13, color: topper === to.k ? '#000' : '#8C7A77' }}>{to.l}</Text>
+            <Text style={st.cp}>{to.p === 0 ? t('common:included') : `+DA${to.p}`}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
