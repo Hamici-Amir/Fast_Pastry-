@@ -14,5 +14,11 @@
   "order_in_progress": "Commande en cours",
   "no_orders_yet": "Aucune commande pour le moment",
   "start_ordering": "Commander",
-  "explore_menu": "Explorer notre menu"
+  "explore_menu": "Explorer notre menu",
+  "onboarding_dream_title": "Conception de gâteau de rêve",
+  "onboarding_dream_subtitle": "Personnalisez chaque détail de votre gâteau de luxe. Choisissez les saveurs, garnitures et designs d'une simple touche.",
+  "onboarding_express_title": "Fraîcheur express",
+  "onboarding_express_subtitle": "De notre boulangerie de luxe directement à votre porte. Découvrez la livraison premium la plus rapide de la ville.",
+  "onboarding_preview_title": "Aperçu en direct",
+  "onboarding_preview_subtitle": "Voyez votre création prendre vie en temps réel. Notre rendu premium vous montre exactement ce que vous recevrez."
 }

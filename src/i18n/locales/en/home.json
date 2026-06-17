@@ -14,5 +14,11 @@
   "order_in_progress": "Order in Progress",
   "no_orders_yet": "No orders yet",
   "start_ordering": "Start Ordering",
-  "explore_menu": "Explore Our Menu"
+  "explore_menu": "Explore Our Menu",
+  "onboarding_dream_title": "Dream Cake Design",
+  "onboarding_dream_subtitle": "Customize every detail of your luxury cake. Choose flavors, toppings, and designs with a simple tap.",
+  "onboarding_express_title": "Express Freshness",
+  "onboarding_express_subtitle": "From our luxury bakery straight to your door. Experience the fastest premium delivery in the city.",
+  "onboarding_preview_title": "Live Preview",
+  "onboarding_preview_subtitle": "See your creation come to life in real-time. Our premium renderer shows you exactly what you'll receive."
 }

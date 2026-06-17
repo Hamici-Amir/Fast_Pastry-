@@ -12,26 +12,19 @@ import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
-const ONBOARDING_DATA = [
-  {
-    title: "Dream Cake Design",
-    subtitle: "Customize every detail of your luxury cake. Choose flavors, toppings, and designs with a simple tap.",
-    illustration: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400&auto=format&fit=crop",
-  },
-  {
-    title: "Express Freshness",
-    subtitle: "From our luxury bakery straight to your door. Experience the fastest premium delivery in the city.",
-    illustration: "https://images.unsplash.com/photo-1557089706-68d02dbda277?q=80&w=400&auto=format&fit=crop",
-  },
-  {
-    title: "Live Preview",
-    subtitle: "See your creation come to life in real-time. Our premium renderer shows you exactly what you'll receive.",
-    illustration: "https://images.unsplash.com/photo-1562280963-8a5475740a10?q=80&w=400&auto=format&fit=crop",
-  }
+const ILLUSTRATIONS = [
+  "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=400&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1557089706-68d02dbda277?q=80&w=400&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1562280963-8a5475740a10?q=80&w=400&auto=format&fit=crop",
 ];
 
 export const OnboardingScreen = ({ onFinish }: { onFinish: () => void }) => {
   const { t } = useTranslation();
+  const ONBOARDING_DATA = [
+    { title: t('home:onboarding_dream_title'), subtitle: t('home:onboarding_dream_subtitle'), illustration: ILLUSTRATIONS[0] },
+    { title: t('home:onboarding_express_title'), subtitle: t('home:onboarding_express_subtitle'), illustration: ILLUSTRATIONS[1] },
+    { title: t('home:onboarding_preview_title'), subtitle: t('home:onboarding_preview_subtitle'), illustration: ILLUSTRATIONS[2] },
+  ];
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollX = useSharedValue(0);
 

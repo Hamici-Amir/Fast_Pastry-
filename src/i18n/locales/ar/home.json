@@ -14,5 +14,11 @@
   "order_in_progress": "طلب قيد التجهيز",
   "no_orders_yet": "لا توجد طلبات بعد",
   "start_ordering": "ابدأ الطلب",
-  "explore_menu": "استعرض قائمتنا"
+  "explore_menu": "استعرض قائمتنا",
+  "onboarding_dream_title": "تصميم كعكة الأحلام",
+  "onboarding_dream_subtitle": "خصص كل تفصيلة في كعكتك الفاخرة. اختر النكهات والإضافات والتصاميم بلمسة بسيطة.",
+  "onboarding_express_title": "نضارة سريعة",
+  "onboarding_express_subtitle": "من مخبزنا الفاخر مباشرة إلى باب منزلك. استمتع بأسرع توصيل فاخر في المدينة.",
+  "onboarding_preview_title": "معاينة حية",
+  "onboarding_preview_subtitle": "شاهد إبداعك ينبض بالحياة في الوقت الفعلي. يعرض لك مصممنا المميز ما ستحصل عليه بالضبط."
 }
