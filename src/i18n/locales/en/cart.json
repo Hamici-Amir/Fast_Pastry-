@@ -18,5 +18,9 @@
   "apply_coupon": "Apply Coupon",
   "coupon_placeholder": "Enter coupon code",
   "invalid_coupon": "Invalid coupon code",
-  "savings": "Savings"
+  "savings": "Savings",
+  "edit_address": "Edit Address",
+  "edit_address_desc": "Addresses within Paris District 1-8 are locked for active courier routing.",
+  "understood": "Understood",
+  "change": "Change"
 }
