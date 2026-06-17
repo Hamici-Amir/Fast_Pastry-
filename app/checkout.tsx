@@ -297,9 +297,9 @@ export default function CheckoutScreen() {
             </View>
             <TouchableOpacity 
               style={styles.addressEditBtn}
-               onPress={() => Alert.alert(t('cart:edit_address'), t('cart:edit_address_desc'), [{ text: t('cart:understood') }])}
+              onPress={() => Alert.alert("Edit Address", "Addresses within Paris District 1-8 are locked for active courier routing.", [{ text: "Understood" }])}
             >
-              <Text style={styles.addressEditText}>{t('cart:change')}</Text>
+              <Text style={styles.addressEditText}>Change</Text>
             </TouchableOpacity>
           </View>
         </GlassBox>

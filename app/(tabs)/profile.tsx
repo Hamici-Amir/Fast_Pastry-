@@ -37,9 +37,9 @@ const { width } = Dimensions.get('window');
 
 // Mock Data
 const SAVED_RECIPES = [
-  { id: '1', title: 'Midnight Velvet', image: require('../../assets/images/luxury_cake.png') },
-  { id: '2', title: 'Imperial Gold', image: require('../../assets/images/luxury_cake.png') },
-  { id: '3', title: 'Rosy Ispahan', image: require('../../assets/images/luxury_cake.png') }
+  { id: '1', title: 'Midnight Velvet', image: require('../../assets/images/luxury_cake.jpg') },
+  { id: '2', title: 'Imperial Gold', image: require('../../assets/images/luxury_cake.jpg') },
+  { id: '3', title: 'Rosy Ispahan', image: require('../../assets/images/luxury_cake.jpg') }
 ];
 
 export default function ProfileScreen() {

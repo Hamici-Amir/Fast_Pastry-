@@ -1,9 +1,9 @@
-﻿{
+{
   "save": "Enregistrer",
   "cancel": "Annuler",
   "loading": "Chargement...",
   "search": "Rechercher",
-  "no_results": "Aucun rÃ©sultat trouvÃ©",
+  "no_results": "Aucun résultat trouvé",
   "confirm": "Confirmer",
   "delete": "Supprimer",
   "edit": "Modifier",
@@ -12,9 +12,9 @@
   "finish": "Terminer",
   "submit": "Valider",
   "close": "Fermer",
-  "retry": "RÃ©essayer",
+  "retry": "Réessayer",
   "error": "Erreur",
-  "success": "SuccÃ¨s",
+  "success": "Succès",
   "warning": "Avertissement",
   "info": "Info",
   "yes": "Oui",
@@ -33,7 +33,7 @@
   "tab_deliveries": "Livraisons",
   "tab_earnings": "Gains",
   "chat_title": "Chat Boutique",
-  "chat_placeholder": "Ã‰crivez un message...",
+  "chat_placeholder": "Écrivez un message...",
   "chat_send": "Envoyer",
-  "tagline": "Le Bel Art de la PÃ¢tisserie"
+  "tagline": "Le Bel Art de la Pâtisserie"
 }

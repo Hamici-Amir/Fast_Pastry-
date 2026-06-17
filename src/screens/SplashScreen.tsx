@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const { width, height } = Dimensions.get('window');
 
 // Import the generated hyper-realistic luxury cake image
-const luxuryCakeImg = require('../../assets/images/luxury_cake.png');
+const luxuryCakeImg = require('../../assets/images/luxury_cake.jpg');
 
 // Gold Dust / Floating Sparkle Particle Component using Native Animated
 const GoldDustParticle = ({ delay, startX, startY }: { delay: number, startX: number, startY: number }) => {

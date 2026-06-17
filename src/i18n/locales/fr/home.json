@@ -1,6 +1,6 @@
-﻿{
-  "welcome_title": "Pâtisseries, livrées",
-  "welcome_subtitle": "Artisanales pour vous",
+{
+  "welcome_title": "Pâtisseries artisanales, livrées",
+  "welcome_subtitle": "Fabriquées avec amour, livrées à votre porte",
   "search_placeholder": "Rechercher gâteaux et pâtisseries...",
   "featured": "En vedette",
   "promotions": "Offres spéciales",
@@ -22,4 +22,3 @@
   "onboarding_preview_title": "Aperçu en direct",
   "onboarding_preview_subtitle": "Voyez votre création prendre vie en temps réel. Notre rendu premium vous montre exactement ce que vous recevrez."
 }
-

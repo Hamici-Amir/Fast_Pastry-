@@ -1,4 +1,4 @@
-﻿{
+{
   "dashboard": "Tableau de bord",
   "orders": "Commandes",
   "navigation": "Navigation",
@@ -10,15 +10,15 @@
   "deliveries": "Livraisons",
   "pending_deliveries": "Livraisons en attente",
   "active_delivery": "Livraison en cours",
-  "completed_deliveries": "TerminÃ©es",
+  "completed_deliveries": "Terminées",
   "accept": "Accepter",
   "decline": "Refuser",
-  "mark_delivered": "Marquer comme livrÃ©",
-  "pick_up": "RÃ©cupÃ©rer",
+  "mark_delivered": "Marquer comme livré",
+  "pick_up": "Récupérer",
   "navigate": "Naviguer",
   "customer": "Client",
   "address": "Adresse",
-  "phone": "TÃ©lÃ©phone",
+  "phone": "Téléphone",
   "notes": "Notes de livraison",
   "no_deliveries": "Aucune livraison disponible",
   "status_online": "En ligne",
@@ -26,7 +26,7 @@
   "go_online": "Passer en ligne",
   "go_offline": "Passer hors ligne",
   "total_deliveries": "Total des livraisons",
-  "rating": "Ã‰valuation",
+  "rating": "Évaluation",
   "notifications": "Notifications",
-  "settings": "ParamÃ¨tres"
+  "settings": "Paramètres"
 }

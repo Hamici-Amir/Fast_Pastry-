@@ -2,7 +2,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import enCommon from './locales/en/common.json';
 import enAuth from './locales/en/auth.json';
 import enHome from './locales/en/home.json';
