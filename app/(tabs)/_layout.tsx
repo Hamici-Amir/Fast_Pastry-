@@ -3,8 +3,11 @@ import { Tabs } from 'expo-router';
 import { TabBar } from '../../src/components/navigation/TabBar';
 import { Home, LayoutGrid, Palette, ShoppingBag, User, MapPin } from 'lucide-react-native';
 import { theme } from '../../src/theme';
+import { useTranslation } from 'react-i18next';
 
 export default function TabLayout() {
+  const { t } = useTranslation();
+
   // TODO: Connect this to actual order state from context/global store
   const hasActiveOrder = true;
 
@@ -19,42 +22,42 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: t('common:tab_home'),
           tabBarIcon: ({ color, size }) => <Home color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="catalogue"
         options={{
-          title: 'Catalogue',
+          title: t('common:tab_catalogue'),
           tabBarIcon: ({ color, size }) => <LayoutGrid color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="customizer"
         options={{
-          title: 'Customizer',
+          title: t('common:tab_customizer'),
           tabBarIcon: ({ color, size }) => <Palette color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="cart"
         options={{
-          title: 'Cart',
+          title: t('common:tab_cart'),
           tabBarIcon: ({ color, size }) => <ShoppingBag color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: t('common:tab_profile'),
           tabBarIcon: ({ color, size }) => <User color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="tracking"
         options={{
-          title: 'Tracking',
+          title: t('common:tab_tracking'),
           href: hasActiveOrder ? undefined : null,
           tabBarIcon: ({ color, size }) => <MapPin color={color} size={size} />,
         }}

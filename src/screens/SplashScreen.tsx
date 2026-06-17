@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
     marginLeft: 14, // Perfect optical centering to account for letter spacing
   },
   brandSlogan: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Cairo-Medium',
     fontSize: 11,
     color: '#8C7A77',
     letterSpacing: 3,
