@@ -350,7 +350,7 @@ export const SplashScreen = ({ onFinish }: { onFinish?: () => void }) => {
           
           {/* Brand Slogan */}
           <Text style={styles.brandSlogan}>
-            THE FINE ART OF CAKE DESIGN
+            {t('common:tagline')}
           </Text>
 
           {/* Premium Gold Visual Divider */}
