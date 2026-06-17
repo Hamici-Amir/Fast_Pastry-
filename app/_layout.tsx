@@ -2,14 +2,10 @@ import 'react-native-gesture-handler';
 import "../global.css";
 import '../src/i18n';
 import React, { useState } from 'react';
-import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { 
   Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold 
 } from '@expo-google-fonts/poppins';
-import {
-  Cairo_400Regular, Cairo_500Medium, Cairo_600SemiBold, Cairo_700Bold
-} from '@expo-google-fonts/cairo';
 import { SplashScreen as AppSplashScreen } from '../src/screens/SplashScreen';
 import { OnboardingScreen } from '../src/screens/OnboardingScreen';
 import { LoginScreen } from '../src/screens/LoginScreen';
@@ -44,10 +40,6 @@ export default function RootLayout() {
     'Poppins-Medium': Poppins_500Medium,
     'Poppins-SemiBold': Poppins_600SemiBold,
     'Poppins-Bold': Poppins_700Bold,
-    'Cairo-Regular': Cairo_400Regular,
-    'Cairo-Medium': Cairo_500Medium,
-    'Cairo-SemiBold': Cairo_600SemiBold,
-    'Cairo-Bold': Cairo_700Bold
   });
 
   const [showSplash, setShowSplash] = useState(true);
